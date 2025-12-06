@@ -1,0 +1,54 @@
+このディレクトリはWordPress テーマ構造に近づけた PHP ファイル構成を元にwebサイトを制作したもの
+
+主な構成
+WordPress のテーマ構造そのままの形で、
+「HTML＋CSS＋JS＋PHP」を使った ミニ WordPress テーマ風サイト を作るわ。
+これは VS Code でそのまま作って動かせるし、
+WordPress にテーマを自作するときの理解に直結する やつ。
+🎯 ゴール
+WordPress のテーマと同じ構造：
+mytheme/
+├── index.php
+├── header.php
+├── footer.php
+├── functions.php
+├── style.css
+├── scripts.js
+これ全部を連携させて、
+ヘッダー・フッターの分離 / functions.phpで読み込み / PHPを混ぜたテンプレ
+を再現する。
+
+各ファイルの役割
+
+📁 1. style.css（WordPressテーマヘッダー付き）
+※ WordPress では style.css にテーマ情報を書く。練習として同じ形式で。
+
+📁 2. functions.php
+（WordPress の「CSSとJSを読み込む仕組み」を完全再現）
+本物の WP では wp_enqueue_scripts を使うけど、
+今回は 仕組みだけ を模倣。
+
+📁 3. header.php
+（WordPress と同じく共通ヘッダーを分離）
+📁 4. footer.php
+📁 5. scripts.js（JavaScript）
+
+📁 6. index.php（WordPress の「ループ風」メインページ）
+HTML + PHP を混ぜる WordPress の書き方を再現。
+
+🧩 このテーマ構造で学べること
+これが WordPress のテーマ構成理解にストレートに繋がる：
+✔ header.php / footer.php の分離構造
+→ WordPress テーマは全部この形式。
+✔ index.php のループ構造
+→ WordPress の「The Loop」の基本操作をPHPだけで再現。
+✔ functions.php で CSS/JS を管理
+→ WP テーマ制作の最重要ファイル。
+✔ HTML＋CSS＋JS＋PHP の結合理解
+→ WordPress テーマを作る時、そのまま使える。
+✔ フォルダそのまま WordPress のテーマとして入れられる
+style.css にテーマヘッダーを書いてるので
+このフォルダを zip して WordPress のテーマに追加できる。
+（中身が簡素なだけで構造は本物と同じ）
+
+

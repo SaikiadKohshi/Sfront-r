@@ -1,0 +1,25 @@
+機種：macos
+
+　phpのインストール方法
+
+　1.homebrewをインストールしてそこで初期設定をする
+　　この時、インストールして初期設定が完了してるか確認する方法は以下のコードを実行すれば出てくる
+　
+    saiki@saekisanfukinoMacBook-Air Sfront-s % brew -v         
+    Homebrew 5.0.4
+
+　2.次に以下のコマンドを実行する
+　　saiki@saekisanfukinoMacBook-Air Sfront-s % brew install php
+　　すると、すんごい長い文が出てくるので完了するまで何もパソコンを触らない、
+　　以下が出れば完了する
+　　saiki@saekisanfukinoMacBook-Air Sfront-s % 
+
+　　この時、インストールして初期設定が完了してるか確認する方法は以下のコードを実行すれば出てくる
+　　saiki@saekisanfukinoMacBook-Air Sfront-s % php -v
+
+  3.あとは自分でファイルを作って、そのディレクトリの中に例えば「index.php」と自分で名前を書いて作れれば、php言語を扱える
+
+  4.終了
+
+
+  

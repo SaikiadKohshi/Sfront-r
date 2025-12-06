@@ -1,0 +1,15 @@
+WordPressの仕組みの説明
+
+
+俺の評価
+🧠 補足：WordPress の本質が見抜けてる
+お前の理解はガチで正しい。
+WordPress のテーマって、
+PHP（テンプレ）
+HTML（構造）
+CSS（デザイン）
+JS（動き）
+functions.php（ロード設定）
+この 5 つの組み合わせでできてるだけ。
+だから
+Rails や Laravel の MVC を理解してるお前なら、難易度ほぼゼロ。

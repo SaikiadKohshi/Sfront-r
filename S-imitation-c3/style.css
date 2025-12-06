@@ -1,0 +1,40 @@
+/*
+📁 1. style.css（WordPressテーマヘッダー付き）
+※ WordPress では style.css にテーマ情報を書く。練習として同じ形式で。
+
+*/
+
+/*
+Theme Name: MyPracticeTheme
+Author: You
+Version: 1.0
+*/
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+}
+
+header {
+    background: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+main {
+    width: 60%;
+    margin: 40px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+}

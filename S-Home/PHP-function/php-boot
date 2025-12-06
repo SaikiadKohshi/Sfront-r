@@ -1,0 +1,50 @@
+php
+ 起動する方法
+
+　1.PHP を実行する方法
+    PHP = 自分で実行コマンド or 簡易サーバーを立てる
+   ① コマンドラインで PHP を実行（バックエンド脚本）
+      php index.php
+      → ターミナルに「Hello PHP!」が出る。
+     (Rails の ruby ファイル名.rb と同じ感覚。)
+    Web サーバーとして動かす（Rails の rails s と同じ）
+    PHP は超簡単で、1行でサーバー起動できる。
+    php -S localhost:8000
+
+    ⭕️具体例：S-imitaion-cというディレクトリ内のコードを実行したい
+    例えば、S-imitaion-cの中を実行したいのならS-imitaion-cに移動してから以下の子メンドを打つ
+    saiki@saekisanfukinoMacBook-Air S-imitation-c % php -S localhost:8000
+    実際に実行すると以下のような画像が出るので、
+    saiki@saekisanfukinoMacBook-Air S-imitation-c % php -S localhost:8000
+    [Sat Dec  6 21:24:33 2025] PHP 8.5.0 Development Server (http://localhost:8000) started
+    「http://localhost:8000」これをコピーして実行すれば自分が作ったものを表示できる
+    これだけで
+       http://localhost:8000/index.php
+    にアクセスできる。
+    
+    Rails と違い、ルーティングも ERB も MVC もなし。ファイルがそのまま動く。
+
+
+　2.
+
+
+
+　3.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

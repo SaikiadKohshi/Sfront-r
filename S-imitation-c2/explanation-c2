@@ -1,0 +1,28 @@
+このディレクトリは「お問い合わせフォームつきミニサイト」を作ったもの
+PHP でフォームを受け取り、JS でフロント挙動、CSS でデザイン、HTML で構造…という WordPress でもガチで使う構成 を再現する。
+📂 ファイル構成（VS Codeでこれ作って）
+project-folder/
+├── index.php
+├── process.php
+├── style.css
+└── script.js
+
+各ファイルの役割
+📄 index.php
+（HTMLの中にPHPを混ぜる WordPress と同じ感覚）
+
+📄 style.css
+（WordPressテーマの style.css とほぼ同じ書き方）
+
+📄 script.js
+（送信前にJSで確認する：WordPressでもよくあるバリデーション）
+
+📄 contact.php
+（PHP がフォームの POST を受け取る）
+
+🧠 この構成が “WordPress の基礎全部"
+✔ HTML → WordPress テーマの構造
+✔ CSS → style.css と同じ
+✔ JS → フロントの動作
+✔ PHP → WordPress のテンプレートタグの基礎そのまま
+つまり：このミニサイト作れるなら WordPress のテンプレート構造は一瞬で理解できる。

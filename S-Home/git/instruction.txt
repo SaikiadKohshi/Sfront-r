@@ -1,0 +1,30 @@
+自分のファイルをgithubに反映する方法
+
+1.まず、githubのサイトを開いてログインする
+
+2.次に新しいリポジトリを作る
+
+3.するとgithub上に以下のコードが出るので、github上に反映したいファイルをターミナルで開いてgithub上に書いてる以下のコードを一行ずる実行する
+
+
+
+Quick setup — if you’ve done this kind of thing before
+or	
+	
+Get started by creating a new file or uploading an existing file. We recommend every repository include a README, LICENSE, and .gitignore.
+…or create a new repository on the command line
+echo "# Sfront-r" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/SaikiadKohshi/Sfront-r.git
+git push -u origin main
+…or push an existing repository from the command line
+git remote add origin https://github.com/SaikiadKohshi/Sfront-r.git
+git branch -M main
+git push -u origin main
+
+4.これで完了
+
+
