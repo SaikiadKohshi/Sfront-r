@@ -1,0 +1,93 @@
+/* Reset */
+body {
+    margin: 0;
+    font-family: sans-serif;
+    color: #333;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    border-bottom: 1px solid #ccc;
+}
+
+.profile {
+    font-size: 24px;
+    margin: 0;
+}
+
+.header-content nav {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.hero img {
+    width: 100%;
+    display: block;
+}
+
+/* About */
+.about-section {
+    text-align: center;
+    padding: 60px 0;
+}
+
+.about-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.about-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.about-text h3 {
+    margin: 0;
+}
+
+.about-text p {
+    max-width: 400px;
+}
+
+/* Bicycle */
+.bicycle-section {
+    text-align: center;
+    padding: 60px 0;
+}
+
+.bicycle-list {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    list-style: none;
+    padding: 0;
+    margin: 40px 0;
+}
+
+.bicycle-list li {
+    width: 260px;
+}
+
+.bicycle-list li img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px 0;
+    border-top: 1px solid #ccc;
+    margin-top: 50px;
+}
