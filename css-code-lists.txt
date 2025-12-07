@@ -1,0 +1,711 @@
+目次（読みたい項目に飛んでくれ）
+1.object-fit
+2.justify-content
+3.@media screen and (max-width: 1024px)（メディアクエリ）
+4.padding / margin
+5.font-family: ...（フォント指定）
+6.id と class の違いと実践ルール（WordPress案件向け）
+7.aspect-ratio
+8.擬似要素オーバーレイ（::before + z-index）パターン
+9.grid-template: auto / repeat(1, 1fr); の意味（grid shorthand）
+10.text-decoration: none!important; color: ... !important; の意味と注意点
+11.border-radius
+12.cursor: pointer
+13.transition（トランジション）
+14.display: grid; grid-template-columns: 1fr 1fr;（2カラム）
+15.gap（グリッド／フレックスの間隔）
+16.「.submit-btn系（グラデーションボタン）パターン解説」
+17.box-shadow
+
+
+
+1) object-fit
+意味・役割
+イメージ（<img> 要素）の中で、画像の「切り取り方・拡大縮小方法」を指定する。cover や contain をよく使う。
+よく使う値
+object-fit: cover; → 要素領域いっぱいに画像を敷き詰める（切れることがある）。カードやサムネで多用。
+object-fit: contain; → 全体を見せる（空白ができる）。ロゴなどで有用。
+object-fit: fill; → 幅高さに歪めて合わせる（ほぼ使わない）
+WordPress案件での使いどころ
+投稿サムネイルを固定比率のカードにキレイに収めたいとき。
+ギャラリーのサムネやサービス画像。
+注意点
+object-fit は <img> に対して効く（背景画像には効かない）。
+古めのIEは非対応だが、モダン案件なら問題なし。
+例
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+
+
+2) justify-content
+意味・役割
+Flexbox（display:flex）で「交差軸に対して要素をどう配置するか」を指定する（主に水平方向の配置）。代表値：flex-start center flex-end space-between space-around space-evenly
+使いどころ
+ヘッダーナビの左寄せ/右寄せ/中央寄せ。
+カード群の左右スペース調整。
+例
+.header-nav {
+  display: flex;
+  justify-content: space-between; /* 左右に最大スペースを作る */
+  align-items: center;
+}
+注意点
+justify-content は主軸（flex-direction）に従うので、flex-direction: column の場合は縦方向に影響する。
+
+
+
+3) @media screen and (max-width: 1024px) { ... }
+意味・役割
+「画面幅が1024px以下の時だけ適用する」レスポンシブ用の条件ブロック。スマホ／タブレット対応に必須。
+使いどころ（WordPress案件）
+PC用の2カラムを1カラムに崩す。
+ナビをハンバーガーメニューに切り替える。
+フォントや余白の調整。
+例
+@media screen and (max-width: 1024px) {
+  .bicycle-list { grid-template-columns: 1fr; }
+  .hero { padding: 40px 20px; }
+}
+注意点
+モバイルファースト設計なら min-width を使う場合もある。
+ブレイクポイントは案件に合わせて柔軟に（768/1024/1200など）。
+
+
+
+4) padding / margin
+意味・役割
+padding：要素の内側の余白（背景／ボーダーの内側）。
+margin：要素の外側の余白（別要素との距離）。
+使いどころ
+padding：ボタン内のスペース、カード内テキストの余白。
+margin：要素同士の間隔（段落間、セクション間）。
+例
+.card {
+  padding: 20px;   /* 内部の余白 */
+  margin-bottom: 24px; /* 下との距離 */
+}
+注意点
+margin collapse（隣接する block の margin が潰れる）を理解しておく。
+レスポンシブで padding と margin の両方を調整することが多い。
+
+
+
+5) font-family: 'Trebuchet MS', ... , sans-serif;
+意味・役割
+フォントの優先順位（使用できるものを上から順に使う）。最後に汎用フォントファミリ（sans-serifなど）を必ず置く。
+使いどころ（WordPress案件）
+サイト全体のベースフォントは body { font-family: ... } に書く。
+ブランドに合わせたフォントがある場合 @font-face や Google Fonts を使う。
+注意点
+日本語サイトでは英字フォントだけ指定しても日本語フォントが適用される（可読性・見た目に注意）。
+Webフォントの読み込みはパフォーマンス考慮（preconnect、遅延読み込み等）。
+
+
+
+
+6) id と class の明確な違い（現場ルール）
+簡潔な定義
+id：文書内で一意（1ページに1回だけ使う）。主に「ページ内アンカー」や「特定のユニーク要素」に使う。
+class：再利用可能。複数要素に付けてスタイルを共有する。
+WordPress案件での具体例
+id を使う場所
+ページ内アンカー（<section id="about">） → ナビのアンカーメニューで参照
+固有のセクション（例：特別なCTAで1つだけ存在）
+JavaScriptでユニークなターゲットを取る場合（ただし data- 属性推奨）
+class を使う場所
+ボタン、カード、リスト、モーダルなどの再利用コンポーネント
+レイアウトユーティリティ（.container, .grid, .card）
+BEM命名規則でのコンポーネント設計
+実務ルール例
+再利用可能なコンポーネントは class で作る（単発で特別なものだけ id）。
+JavaScript のフックは data-* 属性を使うと、スタイルと挙動を分離できて安全（例：data-toggle="modal"）。
+例
+<section id="contact">
+  <div class="container contact-block">
+    <button class="btn btn-primary" data-open="contact-modal">お問い合わせ</button>
+  </div>
+</section>
+
+
+
+
+7) aspect-ratio: 25/12;
+意味・役割
+要素の縦横比（アスペクト比）を指定する。画像コンテナや動画・カードの比率固定に便利。
+使いどころ
+サムネイルの比率固定（デザインが崩れないように）
+hero の比率
+例
+.thumbnail {
+  aspect-ratio: 16/9;
+  width: 100%;
+  object-fit: cover; /* img の場合 */
+}
+注意点
+古いブラウザ対応が不要ならどんどん使ってOK。
+子要素の高さを自動で決められるので height を直接指定しなくて済む。
+
+
+
+
+8) 擬似要素オーバーレイ（::before）パターン
+（あなたが示した .course::before のような例）
+目的・役割
+背景画像の上に半透明のレイヤーを乗せて“見やすくする”“色味を合わせる”目的。
+画像の上に文字を乗せる際のコントラスト確保に有効。
+重要ポイント
+擬似要素は position: absolute で親要素に被せるため、親は position: relative にする。
+z-index 管理で：オーバーレイ（z-index:1）→ コンテンツ（z-index:2）という順にする（あなたの例では content が z-index:3 になっている）。
+例
+.course {
+  position: relative;
+  overflow: hidden;
+}
+
+.course::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* shorthand for top:0; right:0; bottom:0; left:0; */
+  background-color: rgba(255,255,255,0.56);
+  z-index: 1;
+}
+
+.course .inner {
+  position: relative;
+  z-index: 2;
+}
+注意点
+pointer-events に注意：オーバーレイがリンクを邪魔するときは pointer-events: none; を追加。
+inset は便利（top/right/bottom/left を一括）。
+
+
+
+
+9) grid-template: auto / repeat(1, 1fr);（grid shorthand）
+意味
+grid-template: <rows> / <columns> のショートハンド。
+上の例は「行のサイズが自動 / 列は repeat(1,1fr)」という意味 → つまり1列グリッド。
+分解例
+grid-template:
+  auto /* rows */
+  /
+  repeat(1, 1fr); /* columns */
+実務での使いどころ
+1列→2列→3列に切り替えるグリッド設計（レスポンシブ）。
+max-width と組み合わせてカードレイアウトを中央寄せ。
+例（実用）
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+10) text-decoration: none!important; color: ... !important;
+意味・役割
+text-decoration: none → リンクの下線を消す。
+!important → CSS の通常の優先順位を無視して強制的に適用する。
+注意点（強烈）
+!important は 最後の手段。他人のスタイルを潰すために使うと保守性が地獄になる。
+WordPress ではプラグイン／テーマのスタイルが競合する場面が多く、つい !important を使いたくなるが、できるだけセレクタの特異性で勝つほうが良い。
+代替
+/* より特異性を上げる例 */
+.header a { text-decoration: none; color: #090a0d; }
+
+
+
+
+11) border-radius: 5px;
+意味・役割
+要素の角を丸くする。カード・ボタン・画像の角丸に多用。
+使いどころ
+画像・カード・ボタンの角丸UX。ブランドに合わせて値を調整（8px/12pxが多い）。
+
+
+
+
+12) cursor: pointer;
+意味・役割
+要素にカーソルを合わせた時にポインター（手の形）を表示 → クリック可能だとユーザーに示す。
+使いどころ
+カスタムボタン、クリック可能なカード、ラベルなど。
+注意
+リッチなアクセシビリティには role="button" やキーボード操作も追加すると良い。
+
+
+
+
+13) transition: 0.3s;
+意味・役割
+プロパティの変化（色・transform・opacityなど）をアニメーションで滑らかにする。値は property duration timing-function delay と指定可能。
+よく使う例
+button {
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+button:hover { transform: translateY(-2px); }
+注意
+opacity や transform はGPUで効率よくアニメーション可能 -> パフォーマンスに優しい。
+
+
+
+
+14) display: grid; grid-template-columns: 1fr 1fr;（2カラム）
+意味・役割
+2カラムレイアウトを作る最も素直な方法。左1カラム、右1カラム（比率変更するなら 2fr 1fr 等）。
+WordPressでの使い所
+記事一覧の2カラムカード
+サービスページのテキスト+画像レイアウト
+例
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 768px) {
+  .two-col { grid-template-columns: 1fr; }
+}
+
+
+
+15) gap
+意味・役割
+Grid / Flex 内の子要素間の隙間（マージンを子に付けるより簡潔）。row-gap と column-gap の shorthand。
+利点
+レイアウトが崩れにくい
+コードがシンプル
+例
+.grid { display: grid; gap: 16px; }
+
+
+
+
+16) .submit-btn_2（グラデーションボタン）パターンの解説
+.submit-btn_2 {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #3498db, #2ecc71);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.submit-btn_2:hover {
+  background: linear-gradient(135deg, #2980b9, #27ae60);
+  transform: translateY(-2px);
+}
+.submit-btn_2:active { transform: translateY(2px); }
+意味
+linear-gradient で綺麗なグラデーションのボタン。
+:hover で色と位置を変えて微妙な立体感を出す。
+WordPress案件での注意
+width: 100% はフォーム内ブロックボタンに最適。
+ボタンのフォントや高さはデザイン基準に合わせて固定。
+
+
+17) box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+意味・役割
+要素に影をつけて浮き上がらせる。値は offsetY offsetX blur spread color の形式（一部省略可）。
+使いどころ
+カード、モーダル、ボタンの強調
+注意は影が強すぎると安っぽく見える → 色・透明度で調整
+例
+.card {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+
+
+
+最後に：実案件での使い方まとめ（短縮版）
+レイアウト：display: grid/flex + gap + justify-content
+画像：object-fit（<img>） or background-image（デザイン背景）
+レスポンシブ：@media で 1カラム化やフォント調整
+見た目微調整：padding/margin/border-radius/box-shadow/transition
+再利用：class（BEM）でコンポーネント化、id はアンカーやユニーク要素だけ
+オーバーレイ：::before or ::after + position:absolute（親は position:relative）
+ボタン：linear-gradient, cursor:pointer, transition, :hover/:active をセット
+
+
+
+
+
+
+
+
+
+✅ WordPress案件で頻出する CSS（完全版：お前が挙げた以外）
+以下は 案件で必ず使う or 使われがちなCSSパターン。
+これを全部理解すると、WordPress環境での実装は爆速になる。
+🔥【1. セクション全般で多用される CSS】
+✔ height: auto;
+WordPressの可変コンテンツでは必須。
+section {
+  height: auto;
+}
+✔ min-height
+Viewport対応・背景画像のヒーローで多用。
+.hero {
+  min-height: 60vh;
+}
+✔ overflow: hidden;
+→ レスポンシブ時のズレ防止・画像はみ出し対策
+.section {
+  overflow: hidden;
+}
+✔ z-index
+（固定ヘッダー・モーダル・ドロワーで必須）
+header {
+  position: fixed;
+  z-index: 1000;
+}
+🔥【2. ヘッダー・フッター系で多用】
+✔ position: sticky
+→ WordPressでスクロール固定ヘッダーに必須
+header {
+  position: sticky;
+  top: 0;
+}
+✔ backdrop-filter（ぼかし）
+→ ガラス風ヘッダーで最近よく使う
+header {
+  backdrop-filter: blur(10px);
+}
+✔ list-style: none;
+→ WPメニューで絶対使う
+nav ul {
+  list-style: none;
+}
+🔥【3. レスポンシブ必須コード】
+✔ width: fit-content;
+.badge {
+  width: fit-content;
+}
+✔ clamp()（最近の主流）
+→ フォントや余白のレスポンシブ対応が最強
+h1 {
+  font-size: clamp(28px, 5vw, 48px);
+}
+✔ vw / vh の活用
+→ ヒーロー画像・LPで超多用
+.hero {
+  height: 100vh;
+}
+🔥【4. 画像・背景系で使うCSS】
+✔ filter（色調整）
+img {
+  filter: brightness(0.8);
+}
+✔ mix-blend-mode
+→ 浮き出し文字のデザインで使う
+.title {
+  mix-blend-mode: overlay;
+}
+✔ object-position
+img {
+  object-position: top;
+}
+🔥【5. ボタン・UIで必須】
+✔ appearance: none;
+フォームの初期スタイルをリセットする
+button {
+  appearance: none;
+}
+✔ outline: none;
+フォーカスの青枠消す
+input:focus {
+  outline: none;
+}
+✔ pointer-events
+→ 背景画像の上の透明ボックスで使う
+.none {
+  pointer-events: none;
+}
+🔥【6. メニュー・アコーディオンで多用】
+✔ max-height + transition
+→ アコーディオンで必須
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .3s ease;
+}
+✔ transform-origin
+アニメーション元の位置
+.menu {
+  transform-origin: left top;
+}
+🔥【7. テーブル系（企業サイトで確実に使う）】
+✔ border-collapse
+table {
+  border-collapse: collapse;
+}
+✔ vertical-align
+td {
+  vertical-align: middle;
+}
+🔥【8. リセットCSSで使う頻出コード】
+✔ box-sizing: border-box;
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+✔ img { max-width: 100%; }
+画像崩壊防止。WPでは100%使う。
+img {
+  max-width: 100%;
+  height: auto;
+}
+✔ a { color: inherit; }
+リンク色カスタムの基本。
+a {
+  color: inherit;
+  text-decoration: none;
+}
+🔥【9. 擬似要素（WordPressでの飾りで多用）】
+✔ :before / :after の定番
+（区切り線・背景・飾り罫線）
+.title::before {
+  content: "";
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  background: #333;
+  bottom: -10px;
+  left: 0;
+}
+🔥【10. 管理画面の調整（functionsでCSSを当てる時）】
+✔ .admin-bar の影響回避
+(WordPress特有)
+.admin-bar header {
+  top: 32px;
+}
+🔥【11. カードデザインで頻出】
+✔ height: auto + min-height 調整
+✔ overflow: hidden;
+✔ display: block;（aタグカード用）
+.card a {
+  display: block;
+}
+🔥【12. モーダル・ポップアップで必須】
+✔ backdrop
+.modal-bg {
+  background: rgba(0, 0, 0, .5);
+}
+🔥【13. フォームのスタイルで多用】
+✔ resize: none;
+textarea {
+  resize: none;
+}
+✔ appearance: textfield;
+（数字入力の上下ボタン削除）
+input[type=number] {
+  appearance: textfield;
+}
+🔥【14. クリッピング・マスク系（LPで使う）】
+✔ clip-path
+.hero {
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+🔥【15. スクロールアニメ系】
+✔ scroll-behavior: smooth;
+html {
+  scroll-behavior: smooth;
+}
+🔥【16. スマホハンバーガーの必須CSS】
+✔ visibility: hidden / visible
+→ ナビ開閉
+✔ transform: translateX()
+→ 横から出すドロワーメニュー
+🎉 これ全部覚えたら案件レベル確定。
+お前がすでに持っているCSSスキルに加えて、
+ここに挙げた “WordPress案件でガチで使うCSS” を覚えると、
+✔ コーポレート
+✔ 店舗サイト
+✔ LP
+✔ プラグイン改修
+✔ テーマ作成
+
+全部できる。
+
+
+
+
+
+
+
+
+
+
+
+他のコード
+1. flexの応用系
+◆ align-items
+要素を上下方向に揃える。
+ヘッダーのロゴとメニューを縦中央にする時ほぼ100%使う。
+display: flex;
+align-items: center;
+◆ flex-wrap
+スマホで横並びが縦落ちするようにする。
+flex-wrap: wrap;
+◆ gap（flexでも使える）
+カードレイアウトで “margin地獄” を避ける。
+gap: 20px;
+
+2. position応用
+◆ sticky（固定ヘッダー・固定ボタンで多用）
+WordPressでよくある「スクロールしたら追従するメニュー」。
+position: sticky;
+top: 0;
+z-index: 100;
+◆ transform + translate（要素のど真ん中に配置）
+モーダルやスライダーの矢印に多用。
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+
+3. テキスト処理（WordPressで超重要）
+◆ 2行・3行でテキストを省略する
+ブログカードのタイトルなどで頻出。
+overflow: hidden;
+display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 2;
+◆ word-break（日本語の強制改行）
+固定ページの文章でレイアウト崩れ防止。
+word-break: break-word;
+◆ letter-spacing / line-height
+デザイナーの指示でよく出るやつ。
+
+4. 画像や背景の応用
+◆ background-size / background-position
+キービジュアルで必須。
+background-size: cover;
+background-position: center;
+◆ filter（色味調整・ヘッダー画像の暗さ調整）
+大人っぽいデザインで使う。
+filter: brightness(0.7);
+◆ mix-blend-mode
+テキストが背景に馴染む表現。
+mix-blend-mode: multiply;
+
+5. アニメーション系（ボタン・フェードイン）
+◆ Transitionの応用
+透明 → 表示、暗くする → 明るくするなど。
+transition: opacity 0.5s ease;
+◆ hoverしたらふわっと
+WordPressのCTAボタンで頻出。
+:hover {
+    transform: scale(1.05);
+    opacity: .9;
+}
+◆ 簡易フェードイン（スクロール時にJSとセットで使う）
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0.6s ease;
+}
+
+.fade-in.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+6. レイアウト応用編
+◆ clamp（レスポンシブの文字サイズ最強）
+WordPressのテーマ制作で最近めっちゃ使われる。
+font-size: clamp(1rem, 2vw, 2rem);
+◆ max-width + margin auto（中央配置の鉄板）
+全ページで使う。
+.max-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+◆ overflow: hidden（はみ出し対策）
+スライダー系で多用。
+overflow: hidden;
+
+7. ボックス装飾の応用
+◆ border-bottomだけ付けて見出し風にする
+.section-title {
+    border-bottom: 2px solid #333;
+    display: inline-block;
+    padding-bottom: 8px;
+}
+◆ before/afterで線や装飾を追加
+WordPressのセクション見出しでめちゃ多い。
+.section-title::before {
+    content: "";
+    width: 40px;
+    height: 4px;
+    background: #000;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+}
+
+8. フォーム系（Contact Form 7で必須）
+◆ inputの基本リセット
+input,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+◆ placeholderのスタイル
+::placeholder {
+    color: #aaa;
+}
+
+9. モバイル対応の細かい調整
+◆ スクロール禁止（モーダルで使う）
+body.modal-open {
+    overflow: hidden;
+}
+◆ タップ時のハイライト無効（スマホでのUX向上）
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+10. WordPress特有の必要CSS
+◆ エディタの余計な margin/padding をリセット
+固定ページ作成で必ず必要。
+.wp-block {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+◆ 画像の自動幅調整（WordPressの挿入画像対策）
+img {
+    max-width: 100%;
+    height: auto;
+}
+◆ Gutenbergのalignwide対応
+.alignwide {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+🔥 まとめ：WordPress実務でよく使う応用CSSカテゴリ
+✔ flex応用（align-items, flex-wrap）
+✔ sticky
+✔ 文字の省略（line-clamp）
+✔ background系（cover / filter）
+✔ animation・hover
+✔ clamp（レスポンシブ最適解）
+✔ before/afterの装飾
+✔ form要素（ContactForm7）
+✔ スマホ最適化（tap highlight / overflow hidden）
+✔ WordPress特有（wp-block / alignwide / img制御）

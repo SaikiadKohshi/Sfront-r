@@ -1,0 +1,240 @@
+Learned
+
+
+
+css内容
+⭕️sectionとdivの役割と使う用途と意味
+
+ sectionの役割
+ section の本質的な役割を、WordPress や本番の Web 制作で “どう使われているのか” の視点で、最短で理解できるように説明する。
+　✅ 結論：section は「ページを意味ごとに区切るための“意味を持つ箱”」
+　もっと簡単に言えば、
+　✔ section = 見出し（タイトル）を持つ“ひとかたまりのコンテンツ”の区切り
+
+🔥 section の役割を３つにまとめるとこうなる
+
+
+① ページの構造を意味的に区切る（セマンティック）
+section は HTML の意味を明確にするためのタグ。
+たとえば：
+<section id="about"> ... </section>
+<section id="service"> ... </section>
+<section id="bicycle"> ... </section>
+これは Google に対して
+ここは「About」の内容
+ここは「Service」の内容
+ここは「商品一覧」の内容
+という意味を伝えている。
+→ SEO 的にも有利になる
+
+
+
+
+
+② CSS や JS で扱いやすくなる（ブロック単位になる）
+section で明確に区切っておけば、
+section {
+  padding: 80px 0;
+}
+とか
+#bicycle h2 { ... }
+#about .text { ... }
+みたいに、大きなブロックごとにスタイルを付けられる。
+これは WordPress テーマ制作でめっちゃ重要。
+
+
+③ スクロールリンク（アンカー）と相性最高
+あなたが作ったこれ：
+<nav><a href="#about">About</a></nav>
+<nav><a href="#Bicycle">Bicycle</a></nav>
+→ section の id を狙って飛んでいる
+<section id="about"> ... </section>
+<section id="Bicycle"> ... </section>
+だからワンタッチで該当セクションにスクロールできる。
+
+
+
+
+じゃあ、div と section はどう違うの？
+✔ div = 意味のない箱（ただの入れ物）
+✔ section = 意味を持った箱（コンテンツの区切り）
+例：こういうときに section を使う
+About セクション
+Service セクション
+実績（Works）セクション
+お問い合わせ（Contact）セクション
+Features セクション
+Bicycle 商品一覧セクション
+例：こういうときは div
+画像＋テキストの小さいまとまり
+フレックスレイアウトで横並びにしたいときのラッパー
+グリッドのコンテナ
+
+
+🟩 WordPress では 100% section を使う
+WordPress の外注案件のデザインカンプを見ると
+ほぼすべてのトップページは section で構成されている。
+例：
+<header>…</header>
+
+<section class="mv">…</section>
+<section class="about">…</section>
+<section class="service">…</section>
+<section class="works">…</section>
+<section class="contact">…</section>
+
+<footer>…</footer>
+🔥 あなたへのアドバイス（重要）
+あなたは WordPress で副業をする予定なので
+✔ 今から section を積極的に使って書くべき
+→ そのほうが
+デザイン再現しやすい
+コードが整理される
+WordPress 実務と同じ感覚になる
+🌟 まとめ（超短版）
+section = 意味のあるコンテンツのまとまり
+主に「ページ内の大きな領域」を区切る
+div = 意味のない汎用的な箱
+WordPress の実務では section が標準
+SEO、CSS設計、JS操作とも相性が良い
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+⭕️divとsectionの正しい使い分け完全版
+wordpressで案件を貰って実際にwebサイト制作を作る際、
+div
+　・具体的にどこの部分を使うのか
+　・具体的にどこのデザインを使うのか
+section
+　・具体的にどこの部分を使うのか
+　・具体的にどこのデザインを使うのか
+
+div と section の違いと“実案件レベルでどう使うか”を、完全に腹落ちするレベルで解説する。
+イメージじゃなく「判断基準＋具体例＋案件での典型パターン」までまとめる。
+
+✅ div と section の役割の“本質”
+🎯 div → 意味を持たないただの箱（レイアウト用）
+装飾・配置・グループ化のためだけの要素
+「このブロックは見た目を整えたい」「まとめたい」
+　→ div
+🎯 section → 意味を持つコンテンツの“区切り”
+「この部分は1つのテーマでまとまってます」
+「ここは見出し（h2〜h3）を持つ独立したセクションです」
+　→ section
+section = 意味のある区切り（見出しが付く内容）
+div = ただの箱（意味なし）
+
+
+🔥 実案件でどう判断するか — 鉄則
+◆ section を使うべき場面（全部“意味がある”）
+　　　　　　Webページの場所	　　　　　　　　　　　　　　　理由
+　　　ファーストビュー（メインビジュアル）	ページの意味ある最初のブロック
+　　　　サービス紹介	　　　　　　　　　　　「サービス概要」という一つの意味がある
+　　　　お客様の声（Voice）　　　　　　　　　　　　　	“声”というテーマ
+　　　　会社概要（About）	　　　　　　　　　　　　　“会社情報”というテーマ
+　　　　実績紹介（Works）	　　　　　　　　　　　　　　“実績”というテーマ
+　　　　ブログ一覧	　　　　　　　　　　　　　　　　　“記事一覧”というテーマ
+　　　 お問い合わせ誘導（CTA）	　　　　　　　“コンバージョン誘導”というテーマ
+　　　 フッター前のまとめ	　　　　　　　　　　　　　“最後の案内”というテーマ
+　　 👉 まとめると：見出し（h2）を付けたくなる部分は section
+
+
+◆ div しか使わない場面（レイアウト目的のみ）
+　　　　　　　　　使う場所	　　　　　　　　　　　　　　　　　理由
+　　　　横並びにしたいとき（flex, grid）	　　　　完全にレイアウト目的
+　　　　カード1枚（実績カード・記事カード）　　　	“意味”はカード単位にない
+　　　　　　ボタンの周囲を整える	　　　　　　　　　　　  レイアウト
+　　　　　画像とテキストの左右配置                       レイアウト
+       padding を調整するための箱	                  レイアウト
+       ヘッダー内部のロゴ・メニュー配置	          意味ではなくレイアウト
+    👉 意味がないなら div。見た目のための箱。
+
+
+
+🧱 WordPress案件の実例：実際の構造（ほぼ全現場この形）
+例：企業ホームページ（LP構成）
+<body>
+  <header> ... </header>
+
+  <section class="fv"> ... </section>
+  <section class="service"> ... </section>
+  <section class="about"> ... </section>
+  <section class="works"> ... </section>
+  <section class="voice"> ... </section>
+  <section class="contact"> ... </section>
+
+  <footer> ... </footer>
+</body>
+そして中身でレイアウト組むときに div が大量に出てくる：
+<section class="service">
+  <div class="inner">
+    <h2>サービス紹介</h2>
+
+    <div class="service-list">
+      <div class="service-item">
+        <div class="service-thumb">...</div>
+        <div class="service-content">...</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+👉 section（意味） > div（レイアウト） の関係
+
+
+
+
+🎯 section を使わない方がいい例
+以下は意味を持たないので使わない：
+ただの背景画像エリア
+padding 調整のためのブロック
+flex で横並びにするためのラッパー
+装飾目的の枠
+部分的なコンポーネント（カード、アイコン、1つのパーツ）
+こういうの全部 div。
+
+
+🎯 section を使わない方がいい例
+以下は意味を持たないので使わない：
+ただの背景画像エリア
+padding 調整のためのブロック
+flex で横並びにするためのラッパー
+装飾目的の枠
+部分的なコンポーネント（カード、アイコン、1つのパーツ）
+こういうの全部 div。
+
+
+
+
+
+
+
+　

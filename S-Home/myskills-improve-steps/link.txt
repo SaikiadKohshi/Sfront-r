@@ -1,0 +1,35 @@
+フロントエンドスキルを上げるための実践
+
+　コーティング集
+　リンク先
+　　・https://programming-yell.jp/copy-coding-site/
+　　・https://code-jump.com
+
+
+　wordpressコーディング練習
+　リンク先
+　　・https://code-jump.com/wordpress/
+
+
+
+　wordpressの完成イメージ
+　リンク先
+　　・https://code-jump.com/wp-html-complete/
+
+
+
+
+以下のリンク先でこの二つの練習用を見つけたけど、この二つで模写すればwordpress上で実際にwebサイト制作するのに必要なスキルを直接身につけることができますか？
+・https://programming-yell.jp/copy-coding-site/
+・https://code-jump.com
+
+
+
+
+
+
+phpの文法/実装
+　　
+　　リンク先
+　　　1.基礎文法/実装されてる用途
+　　　・https://dtnavi.tcdigital.jp/cat_web/web_005/

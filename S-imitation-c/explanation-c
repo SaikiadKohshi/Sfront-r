@@ -1,0 +1,32 @@
+このディレクトリは「超基礎の基礎webサイト」で
+今すぐ PHP + HTML + CSS + JavaScript を全部使った“超シンプルな Web サイト” を作るテンプレートをお前に作って渡す。
+
+
+✅ フォルダ構成
+simple-site/
+├── index.php
+├── style.css
+└── script.js
+この3つだけで動く。
+
+各ファイルの役割
+🟦 ① index.php（PHP + HTML）
+🟩 ② style.css（CSS）
+🟨 ③ script.js（JavaScript）
+
+
+🔥 これで何が学べる？
+このミニサイトは WordPress に直結してる。
+index.php → WordPress の index.php, single.php と同じ
+HTML → WordPressテーマのHTMLそのもの
+CSS → WordPress の style.css にそのまま移行
+JS → WordPress の script.js に同じように読み込める
+PHP の埋め込み → WordPress のテンプレートタグと同じ感覚
+WordPress のテーマ編集は
+「HTML の中に PHP を混ぜる」だけやし、
+今やってることがそのまま応用になる。
+
+
+
+
+

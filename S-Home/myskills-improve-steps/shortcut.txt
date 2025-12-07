@@ -1,0 +1,460 @@
+php
+
+PHPでまとめて echo する、外部テンプレート化する、関数化する の3つが代表的な「1つのコードで自動生成」する方法です。
+
+✅ 方法1：PHPの関数でヘッダーを一括自動生成する（最もシンプル）
+<?php
+function load_header($title = "Profile Site") {
+    echo <<<HTML
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{$title}</title>
+    <!-- 自動でCSS/JS読み込み -->
+HTML;
+
+    load_css_js(); // ←あなたの関数を呼び出す
+
+    echo <<<HTML
+</head>
+<body>
+HTML;
+}
+?>
+使うとき
+<?php
+load_header(); // これだけでOK
+?>
+
+
+
+
+✅ 方法2：ヘッダー部分をテンプレートファイル化して include する
+header.php を作る：
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title><?php echo $title; ?></title>
+    <?php load_css_js(); ?>
+</head>
+<body>
+使うとき：
+<?php
+$title = "Profile Site";
+include "header.php";
+?>
+
+
+
+
+
+
+✅ 方法3：完全自動生成するクラスを作る
+<?php
+class Template {
+    public static function header($title = "Profile Site") {
+        ?>
+        <!DOCTYPE html>
+        <html lang="ja">
+        <head>
+            <meta charset="UTF-8">
+            <title><?= $title ?></title>
+            <?php load_css_js(); ?>
+        </head>
+        <body>
+        <?php
+    }
+}
+?>
+使い方：
+<?php Template::header(); ?>
+
+
+
+
+
+
+
+
+
+
+shortcut集
+
+
+
+VS Code → 設定（Ctrl+Shift+P） →「Preferences: Configure User Snippets」→「html.json」
+に貼り付ければ完成です。
+🎁 あなた専用｜VS Code HTMLスニペットセット
+🔥1. phptmp → HTML5 + PHP + load_css_js() 付きテンプレート生成
+{
+	"PHP HTML Template": {
+		"prefix": "phptmp",
+		"body": [
+			"<!DOCTYPE html>",
+			"<html lang=\"ja\">",
+			"<head>",
+			"    <meta charset=\"UTF-8\">",
+			"    <title>${1:Profile Site}</title>",
+			"    <?php load_css_js(); ?>",
+			"</head>",
+			"<body>",
+			"    ${2}",
+			"</body>",
+			"</html>"
+		],
+		"description": "HTML+PHPの基本テンプレートを一括生成"
+	},
+
+
+🔥2. headphp → headタグ一式 + CSS/JS自動読み込み
+	"Head with PHP CSS/JS": {
+		"prefix": "headphp",
+		"body": [
+			"<head>",
+			"    <meta charset=\"UTF-8\">",
+			"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+			"    <title>${1:Page Title}</title>",
+			"    <?php load_css_js(); ?>",
+			"</head>"
+		],
+		"description": "PHP付きheadタグ"
+	},
+
+
+🔥3. sec → セクション雛形（div + class名）
+	"Section Block": {
+		"prefix": "sec",
+		"body": [
+			"<section class=\"${1:section-name}\">",
+			"    <div class=\"inner\">",
+			"        ${2:content}",
+			"    </div>",
+			"</section>"
+		],
+		"description": "セクションの基本セット"
+	},
+
+
+🔥4. phpfn → PHP関数テンプレート
+	"PHP Function": {
+		"prefix": "phpfn",
+		"body": [
+			"<?php",
+			"function ${1:function_name}(${2}) {",
+			"    ${3:// code}",
+			"}",
+			"?>"
+		],
+		"description": "PHP関数雛形"
+	},
+
+
+🔥5. phpinc → includeテンプレート
+	"PHP include": {
+		"prefix": "phpinc",
+		"body": [
+			"<?php include '${1:file}.php'; ?>"
+		],
+		"description": "PHP include"
+	},
+
+
+🔥6. formset → 即使えるフォーム一式
+	"Form Set": {
+		"prefix": "formset",
+		"body": [
+			"<form action=\"${1:submit.php}\" method=\"post\">",
+			"    <label for=\"name\">名前：</label>",
+			"    <input type=\"text\" id=\"name\" name=\"name\">",
+			"",
+			"    <label for=\"email\">メール：</label>",
+			"    <input type=\"email\" id=\"email\" name=\"email\">",
+			"",
+			"    <input type=\"submit\" value=\"送信\">",
+			"</form>"
+		],
+		"description": "用途汎用フォーム"
+	},
+
+
+🔥7. card → よく使うカードレイアウト
+	"Card Block": {
+		"prefix": "card",
+		"body": [
+			"<div class=\"card\">",
+			"    <img src=\"${1:image.jpg}\" alt=\"\">",
+			"    <h3>${2:Title}</h3>",
+			"    <p>${3:Description}</p>",
+			"</div>"
+		],
+		"description": "カードレイアウト"
+	}
+}
+✅ 使い方
+VS Code で HTML/PHP ファイルを開いて…
+👉 phptmp + Tab
+→ あなた専用のテンプレートが全部一瞬で出現
+👉 headphp
+→ <head> タグ一式が生成
+👉 sec
+→ <section> の基本形が生成
+などなど。
+🎨 カスタムも可能
+ページタイトルを自動入力したい
+デフォルトCSSやJSのパスを固定したい
+PHPのテンプレートをもっと増やしたい
+などあれば、あなただけのスニペットを追加で作ります。
+必要なら
+“自動でヘッダー・フッター・メニューまで生成する完全版テンプレート”
+も作れますよ！
+
+
+
+自動で ヘッダー、フッター、メニューまで生成する完全版テンプレート を作成しますね。
+これで、ページの骨組みがすぐに出来上がります。
+以下は VS Codeのスニペット として使えるテンプレートです。
+あなた専用のスニペットセットに追加する形で活用できます。
+🎁 完全版テンプレート：ヘッダー、フッター、メニュー付き
+
+
+🔥1. fullpage → ヘッダー、メニュー、フッターまで自動生成する完全テンプレート
+{
+	"Full Page Template": {
+		"prefix": "fullpage",
+		"body": [
+			"<!DOCTYPE html>",
+			"<html lang=\"ja\">",
+			"<head>",
+			"    <meta charset=\"UTF-8\">",
+			"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+			"    <title>${1:Profile Site}</title>",
+			"    <?php load_css_js(); ?>",
+			"</head>",
+			"<body>",
+			"",
+			"    <!-- Header -->",
+			"    <header>",
+			"        <div class=\"logo\">",
+			"            <a href=\"${2:/}\">${3:Site Logo}</a>",
+			"        </div>",
+			"        <nav>",
+			"            <ul>",
+			"                <li><a href=\"${4:/home}\">ホーム</a></li>",
+			"                <li><a href=\"${5:/about}\">会社概要</a></li>",
+			"                <li><a href=\"${6:/services}\">サービス</a></li>",
+			"                <li><a href=\"${7:/contact}\">お問い合わせ</a></li>",
+			"            </ul>",
+			"        </nav>",
+			"    </header>",
+			"",
+			"    <!-- Main Content -->",
+			"    <main>",
+			"        <section class=\"${8:main-section}\">",
+			"            <h1>${9:Welcome to our site!}</h1>",
+			"            <p>${10:Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.}</p>",
+			"        </section>",
+			"    </main>",
+			"",
+			"    <!-- Footer -->",
+			"    <footer>",
+			"        <div class=\"footer-content\">",
+			"            <p>&copy; ${11:2025} ${12:Company Name}. All Rights Reserved.</p>",
+			"        </div>",
+			"    </footer>",
+			"</body>",
+			"</html>"
+		],
+		"description": "ヘッダー、メニュー、フッター付きの完全ページテンプレート"
+	}
+}
+解説
+fullpage と入力して Tab を押すと、ヘッダー、メニュー、メインコンテンツ、フッターが自動で生成されます。
+<header> 部分には ロゴ と ナビゲーションメニュー が含まれ、リンク先を簡単に変更できます。
+<main> 部分は、ページのメインコンテンツ用にセクションを作成して、そこに好きな内容を入れられます。
+<footer> 部分にはコピーライトなどを自動で生成します。
+生成されるコード例
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Site</title>
+    <?php load_css_js(); ?>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <a href="/">Site Logo</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/home">ホーム</a></li>
+                <li><a href="/about">会社概要</a></li>
+                <li><a href="/services">サービス</a></li>
+                <li><a href="/contact">お問い合わせ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="main-section">
+            <h1>Welcome to our site!</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Company Name. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
+
+
+🔥2. header → ヘッダー部分だけを生成するスニペット
+{
+	"Header Template": {
+		"prefix": "header",
+		"body": [
+			"<header>",
+			"    <div class=\"logo\">",
+			"        <a href=\"${1:/}\">${2:Site Logo}</a>",
+			"    </div>",
+			"    <nav>",
+			"        <ul>",
+			"            <li><a href=\"${3:/home}\">ホーム</a></li>",
+			"            <li><a href=\"${4:/about}\">会社概要</a></li>",
+			"            <li><a href=\"${5:/services}\">サービス</a></li>",
+			"            <li><a href=\"${6:/contact}\">お問い合わせ</a></li>",
+			"        </ul>",
+			"    </nav>",
+			"</header>"
+		],
+		"description": "ヘッダー部分だけを生成"
+	}
+}
+
+
+🔥3. footer → フッター部分だけを生成するスニペット
+{
+	"Footer Template": {
+		"prefix": "footer",
+		"body": [
+			"<footer>",
+			"    <div class=\"footer-content\">",
+			"        <p>&copy; ${1:2025} ${2:Company Name}. All Rights Reserved.</p>",
+			"    </div>",
+			"</footer>"
+		],
+		"description": "フッター部分だけを生成"
+	}
+}
+✅ 使い方
+fullpage と入力 → Tab → 完全なページテンプレートが生成
+header と入力 → Tab → ヘッダー部分が生成
+footer と入力 → Tab → フッター部分が生成
+🧩 さらにカスタマイズも可能
+メニュー項目を増やしたり、順番を変えたり
+ロゴ画像を挿入したい場合など
+サイドバーや追加のセクションを自動追加したい
+こういった カスタマイズ も可能ですので、必要な部分があれば教えてください！
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>My Theme Practice</title>
+    <?php load_css_js(); ?>
+</head>
+<body>
+</body>
+</html>　これは？
+ChatGPT:
+このコードは、シンプルなHTMLテンプレート に、PHP の load_css_js() 関数を組み込んだものですね。
+具体的には：
+
+<!DOCTYPE html>：HTML5の宣言（ブラウザにHTML5文書であることを伝える）
+<html lang="ja">：日本語を指定したHTML文書
+<head>：メタ情報や外部CSS/JSを読み込む部分
+<meta charset="UTF-8">：文字コードをUTF-8に設定（日本語を扱うためには必須）
+<title>My Theme Practice</title>：ブラウザのタブに表示されるタイトル
+<?php load_css_js(); ?>：PHPで定義された関数 load_css_js() を呼び出して、スタイルシートやJavaScriptを読み込む
+<body>：HTMLの本文部分（このコードでは空）
+これをEmmetで自動生成したい場合
+このコードを VS CodeのEmmetスニペット として一発で生成する方法を教えます！
+Emmetスニペットを作成する方法
+VS Codeの設定を開く
+
+
+Ctrl + Shift + P → 「Preferences: Configure User Snippets」を選択。
+html.json を選択（もしくは新規で作成）。
+以下のスニペットを追加：
+{
+    "HTML + PHP Template with load_css_js()": {
+        "prefix": "htmlphp", 
+        "body": [
+            "<!DOCTYPE html>",
+            "<html lang=\"ja\">",
+            "<head>",
+            "    <meta charset=\"UTF-8\">",
+            "    <title>${1:My Theme Practice}</title>",
+            "    <?php load_css_js(); ?>",
+            "</head>",
+            "<body>",
+            "    ${2}",
+            "</body>",
+            "</html>"
+        ],
+        "description": "HTMLテンプレート + PHPのload_css_js()読み込み"
+    }
+}
+使い方
+新しいHTMLファイルで htmlphp と入力し、Tab キーを押すと、自動でこのテンプレートが展開されます。
+生成されるコード
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>My Theme Practice</title>
+    <?php load_css_js(); ?>
+</head>
+<body>
+</body>
+</html>
+まとめ
+Emmetのスニペット を使うと、このようなテンプレートを数文字で生成でき、開発の効率がかなり上がります。
+このテンプレートでは、基本的なHTML5構造に加えて、PHPでCSSやJSを読み込む処理 を組み込んでいます。
+もし他にも追加したい内容やカスタマイズしたい部分があれば、教えてください！
+
+
+
+
+
+
+
+
+
+
+

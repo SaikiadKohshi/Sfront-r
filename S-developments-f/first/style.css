@@ -1,0 +1,266 @@
+/* 画面全体 */
+body{
+    margin: 0;
+    background: #f5f5f5; 
+
+    /* 追加 */
+    /*
+      font-family: sans-serif;
+      color: #333;
+    */
+    
+}
+
+
+/* header.php */
+.profile{
+    background-color: rgb(61, 59, 59);
+}
+/* 正解の図 */
+/*
+.profile {
+    font-size: 24px;
+    margin: 0;
+}
+*/
+
+
+/* 追加 */
+
+/*
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    border-bottom: 1px solid #ccc;
+}
+
+
+
+.header-content nav {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.hero img {
+    width: 100%;
+    display: block;
+}
+
+
+*/
+
+
+
+
+
+
+/* about.php */
+/* タイトル */
+.about-h2{
+    font-size: 35px;
+    margin: 0;
+}
+/* 内容 */
+.about-content{
+    flex-direction: column;
+}
+.about-detail-content{
+    font-size: 52px;
+    margin: 5.2px;
+}
+.about-h3{
+    font-size: 30px;
+}
+
+
+/* 正解の図 */
+/*
+
+about-section：
+.about-section {
+    text-align: center;
+    padding: 60px 0;
+}
+
+.about-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.about-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.about-text h3 {
+    margin: 0;
+}
+
+.about-text p {
+    max-width: 400px;
+}
+
+
+
+
+
+
+
+
+
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* bicycle.php */
+/* タイトル */
+.bicycle-h2 {
+    font-size: 35px;
+    margin: 0;
+}
+
+/* 内容 */
+.bicycle-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.bicycle-content li {
+    list-style: none;
+    margin-bottom: 30px;
+}
+
+.bicycle2 {
+    width: 50px;
+    height: 50px;
+
+    background-image: url("img/bicycle2.jpg"); /* ← ここは半角英数字推奨 */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    border-radius: 6px;
+}
+
+.bicycle-c {
+    font-size: 52px;
+    margin: 0;
+}
+
+
+
+
+/* footer.php */
+.footer-title{
+    height: 30px;
+    text-align: center;
+}
+
+
+
+
+
+
+@media screen and (max-width: 1024px){
+
+
+    body{
+        margin: 0;
+        background: #f5f5f5;
+        
+    }
+    
+    
+    
+    /* header.php */
+    .profile{
+        background-color: rgb(61, 59, 59);
+    }
+    
+    
+    /* about.php */
+    /* タイトル */
+    .about-h2{
+        font-size: 35px;
+        margin: 0;
+    }
+    /* 内容 */
+    .about-content{
+        flex-direction: row;
+    }
+    .about-detail-content{
+        font-size: 52px;
+        margin: 5.2px;
+    }
+    .about-h3{
+        font-size: 30px;
+    }
+    
+    
+    
+    
+    
+    /* bicycle.php */
+    /* タイトル */
+    .bicycle-h2{
+        font-size: 35px;
+        margin: 0;
+    }
+    
+    /* 内容 */
+    .ul{
+        flex-direction: row;
+    }
+    .bicycle-c{
+        font-size: 52px;
+        margin: 0;
+    }
+    
+    
+    
+    /* footer.php */
+    .footer-title{
+        height: 30px;
+        text-align: center;
+    }
+    
+    
+
+} 
+
+/* wordpressでの表示 */
+
+/*
+
+✔ 実際に WordPress に移行するときの書き方（参考）
+もし WordPress に移行したら、background-image はこう書く：
+background-image: url("<?php echo get_template_directory_uri(); ?>/img/jitensha2.jpg");
+今回は WordPress なしなので必要なし。
+
+*/

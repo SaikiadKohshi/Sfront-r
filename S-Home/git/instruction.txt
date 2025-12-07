@@ -1,10 +1,11 @@
 自分のファイルをgithubに反映する方法
 
-1.まず、githubのサイトを開いてログインする
+1. 新しく作った場合
+a.まず、githubのサイトを開いてログインする
 
-2.次に新しいリポジトリを作る
+b.次に新しいリポジトリを作る
 
-3.するとgithub上に以下のコードが出るので、github上に反映したいファイルをターミナルで開いてgithub上に書いてる以下のコードを一行ずる実行する
+c.するとgithub上に以下のコードが出るので、github上に反映したいファイルをターミナルで開いてgithub上に書いてる以下のコードを一行ずる実行する
 
 
 
@@ -25,6 +26,19 @@ git remote add origin https://github.com/SaikiadKohshi/Sfront-r.git
 git branch -M main
 git push -u origin main
 
-4.これで完了
+d.これで完了
+
+
+2. 更新する場合
+           Vsコード上で変更したいコードを含むファイルを選択する
+　　　 変更したファイルを選択したら開発しているディレクトリ上で以下のコードを順番に打つ
+　　　　git add . 
+       git commit -m "first commit"
+　　　　git push -u origin main
+　　　これで変更した部分がgit hub上に反映されたかつ草も生えて完了
+
+
+
+
 
 
