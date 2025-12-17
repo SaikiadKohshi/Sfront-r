@@ -1,0 +1,235 @@
+
+
+/* header.php */
+
+/* 一番上の画像の部分 */
+.header-introduction{
+    /* 下のようなコードではサイト上に反映されない */
+    /*
+      background-image: url("homesite.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+    */
+    
+    
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgb(102, 102, 102);
+    
+    
+}
+
+/* header.phpにある画像 */
+.header-picture{
+    
+    
+    width: 43%;
+
+    /*object-fit: contain;*/ /* 通常はいるけど、今回はいらない */
+}
+
+
+
+
+
+
+
+/* 「ボタンを押す → 画面の半分だけメニューがスライド表示」、ページ遷移なし・JSで同期処理するために使われるデザイン集 */
+/*①*/
+/* headerの親要素決定 */
+.site-header {
+  position: relative;
+}
+/* ヘッダー画像(無し) 
+.header-picture {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+}
+*/
+
+/* メニューボタンの全体部分を設定するためのコード */
+.menu-button{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1001;
+
+  padding: 10px 14px;
+  
+  background: rgba(255,255,255,0.85);
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+
+
+}
+
+
+/*②*/
+/* スライドメニューの全体部分を設定するためのコード */
+.slide-menu{
+  position: fixed;
+  top: 0%;
+  right: -50%;
+  width: 50%;
+  height: 100vh;
+
+  background-color: rgb(34, 149, 250);
+  color: rgb(143, 222, 248);
+  z-index: 1000;
+
+  transition: right 0.3s ease;
+
+}
+/* スライドメニューを表示した時の状態を設定するためのコード */
+/* 「.slide-menu .is-open」と「.slide-menu.is-open」の違い */
+/*
+   1.「.slide-menu .is-open」
+   .slide-menu .is-open {
+     right: 0;
+   }・・・・A
+   「.slide-menu .is-open」の意味：「.slide-menu の中にある .is-open クラスを持つ要素」、つまり 親子（または子孫）関係を探してる。
+   Aを書いた時、htmlは以下のように書かないといけない
+   <nav class="slide-menu">
+     <div class="is-open"></div>
+   </nav>
+
+
+   2.「.slide-menu.is-open」
+   .slide-menu.is-open {
+    right: 0;
+   }・・・・B
+   「.slide-menu.is-open」の意味：「.slide-menu かつ .is-open を同時に持つ同一要素」
+   Bを書いた時、htmlは以下のように書かないといけない
+   <nav class="slide-menu is-open">
+
+   まとめ
+   　上のものを図で表現すると以下の通りになる
+   図で直感的に
+   ❌ スペースあり（子要素）
+   .slide-menu
+   └── .is-open
+   ✅ スペースなし（同一要素）
+   .slide-menu.is-open
+
+
+
+*/
+.slide-menu.is-open{
+  right: 0;
+
+}
+/* メニューリストの外骨格を設定するためのコード */
+.menu-list{
+  list-style: none;
+  padding: 80px 24px;
+  
+}
+/* メニューリストの「li」の部分を微調整するためのコード */
+.menu-list li{
+  margin-bottom: 24px;
+  /*margin: 0 24px 0 0;*/
+}
+/* メニューリストの「a」の部分を微調整するためのコード */
+.menu-list a{
+  color: rgb(21, 50, 86);
+  text-decoration: none;
+  font-size: 18px;
+  letter-spacing: 0.1em;
+}
+
+
+
+
+
+
+
+/* page.phpの部分 */
+/* page.phpにある一つ目の区切り部分 */
+.introduction-part1{
+   display: flex;
+   justify-content: center;
+
+   background-color: rgb(102, 102, 102);
+
+   /*height: 300px;*/ /* 変に高さを設定すると逆に微調整する必要があるから、最初はこの高さ設定を無しにする */
+  /* 実際に高さ設定無しで実行するとfigmaなどで最初に自分が作った時のサイズに自動調整される */
+}
+
+/* page.phpにある一つ目の画像の部分 */
+.main-picture01{
+   
+   
+   width: 43%;
+}
+
+
+
+/* page.phpにある二つ目の区切り部分 */
+.introduction-part2{
+  display: flex;
+  justify-content: center;
+
+  background-color: rgb(102, 102, 102);
+
+  /*height: 300px;*/ /* 変に高さを設定すると逆に微調整する必要があるから、最初はこの高さ設定を無しにする */
+  /* 実際に高さ設定無しで実行するとfigmaなどで最初に自分が作った時のサイズに自動調整される */
+}
+/* page.phpにある二つ目の画像の部分 */
+.main-picture02{
+  
+  
+  width: 43%;
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* footer.php */
+
+.footer-Category{
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
