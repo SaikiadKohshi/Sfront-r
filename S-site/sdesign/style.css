@@ -1,0 +1,115 @@
+
+.header-introduction{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgb(254, 202, 138);
+}
+
+.header-picture{
+    height: 1001px;
+    background-color: rgb(167, 255, 226);
+}
+
+
+
+
+
+
+
+
+
+.site-header {
+    position: relative;
+}
+
+.menu-button{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+  
+    padding: 10px 14px;
+    
+    background: rgba(255,255,255,0.85);
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  
+  
+}
+.slide-menu{
+    position: fixed;
+    top: 0%;
+    right: -50%;
+    width: 50%;
+    height: 100vh;
+  
+    background-color: rgb(34, 149, 250);
+    color: rgb(143, 222, 248);
+    z-index: 1000;
+  
+    transition: right 0.3s ease;
+  
+}
+.slide-menu.is-open{
+    right: 0;/* 初級者〜超超超級者向け */
+    /*transform: translateX(0);*//* プロ向け */
+  
+}
+.menu-list{
+    list-style: none;
+    padding: 80px 24px;
+    
+}
+.menu-list li{
+    margin-bottom: 24px;
+    /*margin: 0 24px 0 0;*/
+}
+.menu-list a{
+    color: rgb(21, 50, 86);
+    text-decoration: none;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+}
+
+
+
+
+
+
+/* page.phpの部分 */
+/* page.phpにある一つ目の区切り部分 */
+.introduction-part1{
+    display: flex;
+    justify-content: center;
+ 
+    background-color: rgb(102, 102, 102);
+ 
+}
+.main-picture01{
+    height: 1001px;
+    background-color: rgb(68, 50, 255);
+}
+ 
+/* page.phpにある二つ目の区切り部分 */
+.introduction-part2{
+    display: flex;
+    justify-content: center;
+  
+    background-color: rgb(102, 102, 102);
+  
+}
+.main-picture02{
+    height: 1001px;
+    background-color: rgb(68, 50, 255);
+}
+
+
+
+
+.footer-Category{
+    display: flex;
+    justify-content: center;
+}
