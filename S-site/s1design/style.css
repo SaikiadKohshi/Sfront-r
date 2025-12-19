@@ -1,0 +1,252 @@
+/* bodyスクロールロック */
+body.is-locked {
+    overflow: hidden;
+}
+
+
+
+
+/* header.php */
+
+.header-introduction{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgb(184, 250, 228);
+}
+
+.header-picture{
+    height: 1001px;
+    background-color: rgb(29, 123, 255);
+
+}
+
+
+.site-header {
+    position: relative;
+}
+
+/* ミス */
+/*
+  (芯)bodyスクロールロック 
+.site-header.is-locked{
+    overflow: hidden;
+}
+ スクロールロックのCSS対象が間違っている
+ 今のCSS
+  .site-header.is-locked{
+     overflow: hidden;
+  }
+ 問題点
+   * is-locked を付けたいのは body
+   * でも CSS は .site-header を見ている
+   * JS は body.classList.toggle() を使っている
+   👉 JSとCSSが別の要素を見ている
+ 結果
+   * ロックが効かない or 常にスクロールできない
+   * 「仕様通り動いてない」状態
+
+*/
+
+
+.menu-button{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+  
+    padding: 10px 14px;
+    
+    background: rgba(255,255,255,0.85);
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  
+  
+}
+
+.slide-menu{
+    position: fixed;
+    top: 0%;
+    right: -50%;
+    width: 50%;
+    height: 100vh;
+  
+    background-color: rgb(48, 109, 178);
+    color: rgb(60, 176, 243);
+    z-index: 1000;
+  
+    transition: right 0.3s ease;
+  
+}
+.slide-menu.is-open{
+    right: 0;/* 初級者〜超超超級者向け */
+    /*transform: translateX(0);*//* プロ向け */
+  
+}
+.menu-list{
+    list-style: none;
+    padding: 80px 24px;
+    
+}
+.menu-list li{
+    margin-bottom: 24px;
+    /*margin: 0 24px 0 0;*/
+}
+.menu-list a{
+    color: rgb(1, 68, 130);
+    text-decoration: none;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+}
+
+
+/* フォーカストラップで実装できるか目で確認するためのコード */
+/* 今すぐ「見える化」する方法 */
+/*
+.slide-menu a:focus,
+.slide-menu button:focus {
+    outline: 3px solid #fff;
+    outline-offset: 4px;
+}
+*/
+/*
+.jsも.cssも正しいコードで書いてるのに四角枠が見えない原因
+それでも「四角枠が見えない」理由（ほぼ確定）
+    原因①：:focus-visible が効いていて :focus が抑制されている
+        最近のブラウザは👇こういう挙動をする：
+        マウス操作 → フォーカス枠出さない
+        Tabキー操作 → :focus-visible が使われる
+        つまり今のCSSは👇
+        :focus-visible 用のスタイルが無い
+        👉 結果
+        フォーカスは当たってる
+        でも :focus が発火しない
+        見えない
+*/
+
+/* フォーカストラップで実装できるか目で確認するためのコード */
+/* 今すぐ「見える化」する方法 */
+/* =========================
+   フォーカス可視化（完成形）
+   ========================= */
+
+/* 
+:focus:not(:focus-visible) { マウス・JSフォーカスでは出さない
+    outline: none;
+}
+
+
+:focus-visible { キーボード操作時だけ表示
+    outline: 4px solid red;
+    outline-offset: 4px;
+}
+
+*/
+/* スライドメニュー内は白枠にする（背景対策） */
+.slide-menu a:focus-visible,
+.slide-menu button:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 4px;
+}
+
+
+
+
+/* さらに改良(プロが書くコード) */
+/* ③ さらに安全にする（プロ仕様）
+
+:focus:not(:focus-visible) { マウス操作では出さない
+    outline: none;
+}
+
+
+:focus-visible {   キーボード操作では必ず出す
+    outline: 3px solid #fff;
+    outline-offset: 4px;
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* page.php */
+/* page.phpにある一つ目の区切り部分 */
+.introduction-part1{
+    display: flex;
+    justify-content: center;
+ 
+    background-color: rgb(102, 102, 102);
+ 
+}
+.main-picture01{
+    height: 1001px;
+    background-color: rgb(68, 50, 255);
+}
+
+
+/* page.phpにある二つ目の区切り部分 */
+.introduction-part2{
+    display: flex;
+    justify-content: center;
+  
+    background-color: rgb(102, 102, 102);
+  
+}
+.main-picture02{
+    height: 1001px;
+    background-color: rgb(68, 50, 255);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* footer.php */
+.footer-Category{
+    display: flex;
+    justify-content: center;
+}
+
+
+
+
+
+
+/*
+*:focus {
+    outline: 5px solid red !important;
+}
+    */
