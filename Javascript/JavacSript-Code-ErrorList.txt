@@ -1,0 +1,136 @@
+JavaScript
+  error -その壱-
+
+1  Error-Code:TypeError: null is not an object (evaluating 'slideMenu.classList')
+   コード
+   const menuButton = document.getElementById("menuButton");
+    const slideMenu = document.getElementById("slidMenu");
+    menuButton.addEventListener('click',()=>{
+      console.log('clicked');
+      slideMenu.classList.toggle('is-open');
+    });
+    errorList
+     TypeError: null is not an object (evaluating 'slideMenu.classList')
+    consept(内容)
+      「存在しない要素（null）に対して操作しようとした」
+        slideMenu.classList
+         →この時点で
+        slideMenu === null
+    cause(原因)
+      ① id / class 名の打ち間違い【最多】
+      ❌ よくある例
+        <nav id="slideMenu"></nav>
+        document.getElementById("slidMenu"); // e がない
+        👉 1文字違うだけで null
+ 
+      ② script が DOM より先に実行されている
+      ❌ ダメな例
+        <head>
+          <script src="script.js"></script>
+        </head>
+        👉 HTML未生成 → null
+
+      ③ HTMLの文法ミスで DOM が壊れている
+      ❌ 実例（あなたのケース）
+          <botton>   <!-- スペルミス -->
+          <script src="script.js" defer><script> <!-- 閉じてない -->
+        👉 ブラウザが途中で解釈停止
+        👉 nav 要素が生成されない
+
+      ④ JSが別ページでも読み込まれている
+      ❌ WordPress案件で超多い
+        document.getElementById("slideMenu").classList.toggle("is-open");
+       でも…この場合、このページには slideMenu が無い
+       👉 null
+
+       ⑤ PHP include / 条件分岐で HTML が存在しない
+       ❌ 例
+       <?php if ($is_home): ?>
+         <nav id="slideMenu"></nav>
+       <?php endif; ?>
+       👉 条件 false → HTMLなし → null
+     
+       ⑥ 非同期で後から生成される要素を即取得している
+       （Ajax / fetch / 動的生成）
+       const slideMenu = document.getElementById("slideMenu");
+       👉 まだ存在してない
+
+       ⑦ querySelector の指定ミス
+        document.querySelector("slideMenu"); // ❌
+        document.querySelector("#slideMenu"); // ✅
+
+
+    solution(解決)
+      ① id / class 名の打ち間違い【最多】
+       HTMLとJSをコピペで一致させる
+       consoleで確認
+       console.log(slideMenu);
+
+      ② script が DOM より先に実行されている
+        ① defer（おすすめ）
+          <script src="script.js" defer></script>
+        ② bodyの最後に置く
+          </body>
+          <script src="script.js"></script>
+        ③ DOMContentLoaded
+          document.addEventListener('DOMContentLoaded', () => {
+            // JS処理
+          });
+      ③ HTMLの文法ミスで DOM が壊れている
+        タグの綴り確認
+        開始タグと終了タグを必ずセット
+        DevTools → Elements タブで 要素が存在するか確認
+  
+      ④ JSが別ページでも読み込まれている
+         if (slideMenu) {
+           slideMenu.classList.toggle('is-open');
+         }
+
+      ⑤ PHP include / 条件分岐で HTML が存在しない
+         ElementsタブでDOM確認
+         JS側で存在チェック
+
+      ⑥ 非同期で後から生成される要素を即取得している
+         生成後に取得
+         またはイベント委譲
+      
+    ⭐️実務での「絶対安全」テンプレ
+      const slideMenu = document.getElementById("slideMenu");
+      const menuButton = document.getElementById("menuButton");
+      if (menuButton && slideMenu) {
+           menuButton.addEventListener("click", () => {
+           slideMenu.classList.toggle("is-open");
+          });
+       }
+      これで👉 null事故100%防止
+      
+    ✅デバッグ最短ルート（覚えろ）
+    1️⃣ Console にこれを書く
+      console.log(slideMenu);
+    2️⃣ nullなら即確認
+      ID名
+      HTML存在
+      script位置
+      タグ破壊
+
+    🌐このエラーに強くなると何が変わるか
+      ✅ JSが「動かない理由」を即特定できる
+      ✅ WordPress案件で無双できる
+      ✅ 「なんで動かないかわからない」から卒業
+
+
+
+2.
+
+
+
+3.
+
+
+
+4.
+
+
+
+
+5.

@@ -1,0 +1,116 @@
+🥇① メニュー外クリックで閉じる（最優先）
+実務使用率：★★★★★
+なぜ最優先？
+UX必須
+「ちゃんとしてる感」が一気に出る
+案件レビューでよく見られる
+実装イメージ
+document.addEventListener('click', (e) => {
+  if (!slideMenu.contains(e.target) && !menuButton.contains(e.target)) {
+    slideMenu.classList.remove('is-open');
+  }
+});　これを書いただけだとやっぱ実装しても反応しないので、多分htmlでもなんか編集せなあかんやろ？その部分を教えて
+めっちゃ良いところ突いてる。
+結論から言うね。
+👉 そのJSは正しい
+👉 でも「HTML構造」と「クリックの伝播」を理解してないと動かない or 動いてるように見えない
+
+これは実務あるあるTOP3。
+
+まず結論：HTMLで「必須な前提」は2つある
+必須①
+menuButton と slideMenu が DOM 上に存在していること
+（これはもうクリアしてる）
+
+必須②（ここが本命）
+「メニューを開くクリック」と「外をクリックして閉じるクリック」が衝突しない構造
+今のままだと👇が起きる。
+
+なぜ「反応しない」ように見えるのか（原因）
+起きていること（内部）
+menuButton をクリック
+is-open が付く（メニュー開く）
+でもそのクリックイベントは document にも伝播
+document 側の処理が即発火👇
+slideMenu.classList.remove('is-open');
+👉 開いた瞬間に閉じてる
+結果：
+💥「何も起きてないように見える」
+
+解決策①（最重要・実務王道）
+👉 menuButton のクリックで「伝播を止める」
+
+
+解決策①（最重要・実務王道）
+👉 menuButton のクリックで「伝播を止める」
+JS修正版（これが正解）
+menuButton.addEventListener('click', (e) => {
+  e.stopPropagation(); // ← これが超重要
+  slideMenu.classList.toggle('is-open');
+});
+document 側
+document.addEventListener('click', (e) => {
+  if (
+    !slideMenu.contains(e.target) &&
+    !menuButton.contains(e.target)
+  ) {
+    slideMenu.classList.remove('is-open');
+  }
+});
+✅ これで
+ボタン → 開く
+外 → 閉じる
+が成立する
+
+HTML側で「最低限」必要な形
+👉 HTMLは基本この形でOK
+<header class="site-header">
+  <button id="menuButton" class="menu-button">☰</button>
+
+  <nav id="slideMenu" class="slide-menu">
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Collection</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+  </nav>
+</header>
+⚠️ menuButton を slideMenu の中に入れない
+→ contains 判定が壊れる
+
+解決策②（UX最強・案件で評価高）
+👉 オーバーレイをHTMLに追加
+HTML（追加）
+<div id="overlay" class="overlay"></div>
+
+解決策②（UX最強・案件で評価高）
+👉 オーバーレイをHTMLに追加
+HTML（追加）
+<div id="overlay" class="overlay"></div>
+
+
+JS（連動）
+menuButton.addEventListener('click', (e) => {
+  e.stopPropagation();
+  slideMenu.classList.toggle('is-open');
+  overlay.classList.toggle('is-active');
+});
+
+overlay.addEventListener('click', () => {
+  slideMenu.classList.remove('is-open');
+  overlay.classList.remove('is-active');
+});
+👉 これできたら実務で「お、分かってる」って思われる
+
+JS（連動）
+menuButton.addEventListener('click', (e) => {
+  e.stopPropagation();
+  slideMenu.classList.toggle('is-open');
+  overlay.classList.toggle('is-active');
+});
+
+overlay.addEventListener('click', () => {
+  slideMenu.classList.remove('is-open');
+  overlay.classList.remove('is-active');
+});
+👉 これできたら実務で「お、分かってる」って思われる

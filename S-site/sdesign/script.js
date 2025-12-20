@@ -36,6 +36,22 @@ document.addEventListener('keydown',(e)=>{
     }
 });
 
+
+/* 🔆実務で超使うスペルミスを絶対防げる方法 */
+/* 定数化
+
+  実務ワンポイント（次から超ラクになる）
+  🔒 定数化するとスペルミス防げる
+  const OPEN_CLASS = 'is-open';
+
+   slideMenu.classList.remove(OPEN_CLASS);
+   slideMenu.classList.toggle(OPEN_CLASS);
+
+   これ、現場でめっちゃ使われる。
+
+*/
+
+
 /* メニュー外クリックで閉じるための実装 解説 */
 /*
   クリックしてメニューを開いてからメニューを閉じるまでの流れ

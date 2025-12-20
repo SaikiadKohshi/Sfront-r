@@ -1,0 +1,1202 @@
+骨格のlayout集
+
+💫基本/応用一式集
+基本的な骨格デザイン (レイアウト)
+
+🌌1.グリッドシステムの基本
+  グリッドシステムを使うことで、ページのレイアウトを整えることができます。WordPressのテーマ作成時にもよく使われます。
+  CSS Grid を使った基本的なレイアウト:
+code
+  HTML:
+ <!DOCTYPE html>
+ <html lang="en">
+   <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Layout Example</title>
+    <link rel="stylesheet" href="styles.css">
+   </head>
+  <body>
+    <header>
+      <h1>Website Header</h1>
+      <nav>
+        <a href="#">Home</a> |
+        <a href="#">About</a> |
+        <a href="#">Services</a> |
+        <a href="#">Contact</a>
+      </nav>
+    </header>
+    <main>
+      <h2>Main Content</h2>
+      <p>This is the main content area where most of the page content will go. It spans 8 columns in the 12-column grid system.</p>
+      <p>Additional content can go here, such as articles, images, or any other media.</p>
+    </main>
+    <aside>
+      <h3>Sidebar</h3>
+      <ul>
+        <li><a href="#">Sidebar Item 1</a></li>
+        <li><a href="#">Sidebar Item 2</a></li>
+        <li><a href="#">Sidebar Item 3</a></li>
+      </ul>
+    </aside>
+    <footer>
+      <p>&copy; 2025 Your Website. All Rights Reserved.</p>
+    </footer>
+   </body>
+  </html>
+ CSS:
+  body {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr); /* 12列のグリッド */
+    gap: 20px; /* 各グリッドの間隔 */
+    padding: 20px;
+  }
+
+  header {
+    grid-column: span 12; /* ヘッダーは12列分を占める */
+    background-color: #333;
+    color: white;
+    padding: 10px;
+  }
+
+  main {
+    grid-column: span 8; /* メインコンテンツは8列分 */
+    background-color: #f4f4f4;
+    padding: 20px;
+  }
+
+  aside {
+    grid-column: span 4; /* サイドバーは4列分 */
+    background-color: #e4e4e4;
+    padding: 20px;
+  }
+
+  footer {
+    grid-column: span 12; /* フッターは12列分 */
+    background-color: #333;
+    color: white;
+    padding: 10px;
+  }
+
+解説
+  グリッドシステム: grid-template-columns: repeat(12, 1fr); で、12列に分けたグリッドを作成します。
+  gap: 20px;: グリッドの間に20pxの隙間を作ります。
+  grid-column: span 12;: 各セクション（header, main, aside, footer）がどれだけの幅（列）を占めるか指定します。
+  header と footer は12列全体を占めます。
+  main は8列、aside は4列分の幅を占め、これで2カラムレイアウトを実現します。
+  表示の例
+   ヘッダーは12列全体に表示されます。
+   メインコンテンツは8列、サイドバーは4列で、左右に並ぶ形で配置されます。
+   フッターも12列を使ってページ全体に表示されます。
+  この基本的なレイアウトは、WordPressのテーマを作成する際に非常に便利で、ページのレイアウトを簡単に調整するために役立ちます。必要に応じて、追加のレスポンシブデザインを適用したり、各要素のスタイルをさらに細かく調整することもできます。
+
+----------------------
+
+🌌2.グリッドシステムの基本
+  Flexbox を使った基本的なレイアウト
+  Flexboxは、アイテムを整列させるのに非常に便利です。WordPressのサイドバーやレスポンシブデザインにもよく使われます。
+  Flexbox を使った基本的なレイアウト:
+code
+ HTML:
+  <!DOCTYPE html>
+  <html lang="en">
+     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Flexbox Layout</title>
+        <link rel="stylesheet" href="styles.css">
+      /head>
+   <body>
+    <header>
+        <h1>Website Header</h1>
+        <nav>
+         <a href="#">Home</a> |
+         <a href="#">About</a> |
+         <a href="#">Services</a> |
+         <a href="#">Contact</a>
+        </nav>
+    </header>
+    <main>
+      <article>
+        <h2>Main Content</h2>
+        <p>This is the main content area where most of the page content will go. It spans 3/4 of the width.</p>
+        <p>Additional content can go here, such as articles, images, or any other media.</p>
+      </article>
+
+      <aside>
+        <h3>Sidebar</h3>
+        <ul>
+          <li><a href="#">Sidebar Item 1</a></li>
+          <li><a href="#">Sidebar Item 2</a></li>
+          <li><a href="#">Sidebar Item 3</a></li>
+        </ul>
+      </aside>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Your Website. All Rights Reserved.</p>
+    </footer>
+
+   </body>
+  </html>
+  CSS:
+    body {
+    display: flex;
+    flex-direction: column; /* 縦方向に配置 */
+  }
+
+  header, footer {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+  }
+
+  main {
+    display: flex;
+    flex: 1;
+    justify-content: space-between; /* アイテム間を均等に配置 */
+  }
+
+  article {
+    flex: 3; /* メインコンテンツ */
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+
+  aside {
+    flex: 1; /* サイドバー */
+    padding: 20px;
+    background-color: #e4e4e4;
+  }
+解説
+  body:
+    ・display: flex; と flex-direction: column; で、ページのレイアウトを縦方向にします。これにより、header、main、footer の順に配置されます。
+    ・min-height: 100vh; は、画面全体を使うために追加しています。これでページが常に画面の高さに合わせて伸びます。
+  header と footer:
+    ・これらは画面の上部と下部に表示され、背景色を #333 に、文字色を white に設定しています。
+  main:
+    ・display: flex; として横並びのレイアウトにし、flex: 1; を使って残りの空間を占めるようにします。これにより、article と aside が並ぶエリアを作ります。
+    ・justify-content: space-between; で、article と aside の間にスペースを均等に配置します。
+  article と aside:
+    ・article はメインコンテンツとして、flex: 3; を使って横幅を3/4に設定しています。
+    ・aside はサイドバーとして、flex: 1; を使って横幅を1/4に設定しています。
+  footer:
+    ・フッターは画面の下に固定され、背景色と文字色はヘッダーと同じにしています。
+  このレイアウトは、よく使われる 2カラムレイアウト の一例です。
+  WordPressテーマにおいても、メインコンテンツとサイドバーの配置でよく使われる配置パターンとなります。
+  もしレスポンシブ対応や追加のカスタマイズが必要であれば、さらに メディアクエリ を使って、画面サイズに応じたレイアウト調整が可能です。
+----------------------
+
+
+
+応用的な骨格デザイン (レイアウト)
+🌌3.レスポンシブデザイン
+  レスポンシブデザインは、異なるデバイスに対応するために重要です。メディアクエリを使うことで、スクリーンサイズに合わせたレイアウトの変更が可能です。
+  レスポンシブデザインの例 (CSS Grid):
+code
+  HTML:
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Responsive Grid Layout</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+   <body>
+
+    <header>
+        <h1>Website Header</h1>
+        <nav>
+            <a href="#">Home</a> |
+            <a href="#">About</a> |
+            <a href="#">Services</a> |
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <article>
+            <h2>Main Content</h2>
+            <p>This is the main content area where most of the page content will go. On larger screens, it spans 8 columns.</p>
+            <p>Additional content can go here, such as articles, images, or any other media.</p>
+        </article>
+    </main>
+
+    <aside>
+        <h3>Sidebar</h3>
+        <ul>
+            <li><a href="#">Sidebar Item 1</a></li>
+            <li><a href="#">Sidebar Item 2</a></li>
+            <li><a href="#">Sidebar Item 3</a></li>
+        </ul>
+    </aside>
+
+    <footer>
+        <p>&copy; 2025 Your Website. All Rights Reserved.</p>
+    </footer>
+
+   </body>
+  </html>
+  CSS:
+    1. レスポンシブデザイン
+  レスポンシブデザインは、異なるデバイスに対応するために重要です。メディアクエリを使うことで、スクリーンサイズに合わせたレイアウトの変更が可能です。
+  レスポンシブデザインの例 (CSS Grid):
+  /* デフォルトでは12列のグリッド */
+  body {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+    padding: 20px;
+  }
+
+  header, footer {
+    grid-column: span 12;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+  }
+
+  main {
+    grid-column: span 8;
+    background-color: #f4f4f4;
+    padding: 20px;
+  }
+
+  aside {
+    grid-column: span 4;
+    background-color: #e4e4e4;
+    padding: 20px;
+  }
+  /* スマートフォンなど小さいスクリーン向けに変更 */
+  @media (max-width: 768px) {
+    body {
+        grid-template-columns: 1fr; /* 1列に変更 */
+    }
+
+    main {
+        grid-column: span 1;
+    }
+
+    aside {
+        grid-column: span 1;
+    }
+  }
+解説
+  デフォルトのレイアウト (12列グリッド):
+    ・body に grid-template-columns: repeat(12, 1fr); を指定して、12列のグリッドを作成しています。
+    ・header と footer は12列全体を占め、main は8列、aside は4列分を占めるように設定されています。
+   レスポンシブ対応 (最大幅768pxのスクリーン):
+    ・@media (max-width: 768px) で、スクリーン幅が768px以下のときに、body の grid-template-columns を 1fr に変更して、1列のレイアウトに変更します。
+    ・main と aside は、それぞれ1列分を占めるように grid-column: span 1; を指定しています。
+   header と footer の調整:
+    ・スマートフォンサイズでは、header と footer の パディングを少し調整 して、見栄えを良くしています。
+表示例
+    ・デスクトップやタブレット では、header、main（8列）、aside（4列）、footer といったレイアウトが表示されます。
+    ・スマートフォンや小さいスクリーン では、全体が 1列のレイアウト に変わり、main と aside が縦に並ぶように表示されます。
+さらなるカスタマイズ
+    ・必要に応じて、@media クエリを追加して、より細かいレスポンシブ対応（例: タブレットやモバイルの異なるサイズ）を行うことができます。
+    ・レスポンシブデザインを実現するためには、画像サイズ や フォントサイズ なども 相対的な単位（em、rem、%） にすると、より柔軟に対応できます。
+
+----------------------
+
+🌌4.固定ヘッダー＆フッター
+  ページの上部または下部に固定されたヘッダーやフッターは、ユーザーがどこにスクロールしても常に見える状態になります。これはナビゲーションや重要な情報を常に表示するのに便利です。
+  固定ヘッダーとフッターの例:
+code
+  HTML:
+   <!DOCTYPE html>
+   <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fixed Header and Footer</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+
+      <header>
+        <h1>Website Header</h1>
+        <nav>
+            <a href="#">Home</a> |
+            <a href="#">About</a> |
+            <a href="#">Services</a> |
+            <a href="#">Contact</a>
+        </nav>
+      </header>
+
+      <main>
+        <h2>Main Content</h2>
+        <p>This is the main content area. Scroll down and notice that the header and footer remain fixed while the content scrolls.</p>
+        <p>More content can go here. You can add more sections, images, text, or anything else you like.</p>
+        <p>Scroll to see the effect of the fixed header and footer.</p>
+        <p>Additional content to demonstrate scrolling...</p>
+        <p>Additional content to demonstrate scrolling...</p>
+        <p>Additional content to demonstrate scrolling...</p>
+        <p>Additional content to demonstrate scrolling...</p>
+        <p>Additional content to demonstrate scrolling...</p>
+        <p>Additional content to demonstrate scrolling...</p>
+      </main>
+
+      <footer>
+        <p>&copy; 2025 Your Website. All Rights Reserved.</p>
+      </footer>
+
+    </body>
+  </html>
+
+  CSS:
+    /* 固定ヘッダー */
+   header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    z-index: 1000; /* 上に表示 */
+    text-align: center;
+   }
+    /* 固定フッター */
+   footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    z-index: 1000;
+    text-align: center;
+   }
+    /* ヘッダーとフッターが固定されるため、コンテンツに余白を追加 */
+   main {
+    margin-top: 60px; /* ヘッダー分の余白 */
+    margin-bottom: 60px; /* フッター分の余白 */
+    padding: 20px;
+    background-color: #f4f4f4;
+   }
+
+解説
+ 固定ヘッダー (header):
+    ・position: fixed; と top: 0; を使用して、ページをスクロールしても画面上部に固定されるようにします。
+    ・width: 100%; で画面いっぱいに広がり、z-index: 1000; で他の要素より前面に表示されるようにしています。
+    ・padding: 10px; で内側の余白を設定しています。
+ 固定フッター (footer):
+    ・position: fixed; と bottom: 0; を使用して、ページをスクロールしても画面下部に固定されるようにします。
+    ・width: 100%; と z-index: 1000; でヘッダーと同様に画面幅いっぱいに表示され、他の要素より前面に表示されます。
+    ・padding: 10px; で内側の余白を設定しています。
+ コンテンツ (main):
+    ・ヘッダーとフッターが画面上部と下部に固定されているため、メインコンテンツに余白を追加しています。
+    ・argin-top: 60px; でヘッダー分の余白を、margin-bottom: 60px; でフッター分の余白を設定しています。
+    ・padding: 20px; で内側の余白を追加し、コンテンツが画面の端にくっつかないようにしています。
+表示例
+    ・デスクトップやラップトップ では、スクロールしても ヘッダーとフッター は常に画面上部と下部に表示され、コンテンツがその間でスクロールします。
+    ・スマートフォンやタブレット でも同様に、固定ヘッダーとフッターが表示され、コンテンツが中央にスクロールします。
+注意点
+    ・z-index の値は、他の要素と重ならないように調整する必要があります。
+    ・スクロールが長くなると、固定ヘッダーやフッターがコンテンツを隠すことがあるので、十分な余白 (margin-top と margin-bottom) を確保することが重要です。
+
+
+----------------------
+
+🌌5.サイドバーのトグル機能 (ハンバーガーメニュー)
+  サイドバーをハンバーガーメニューで表示・非表示を切り替えるようにすることで、ユーザーの利便性を高めます。WordPressのテーマでもよく使われます。
+  サイドバーのトグル例:
+code
+  HTML:
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sidebar and Hamburger Menu</title>
+        <link rel="stylesheet" href="styles.css">
+      </head>
+     <body>
+
+         <!-- ハンバーガーメニュー -->
+        <div class="hamburger-menu" onclick="toggleSidebar()"></div>
+
+        <!-- サイドバー -->
+        <div class="sidebar">
+            <h2>Sidebar Menu</h2>
+            <ul>
+               <li><a href="#">Home</a></li>
+               <li><a href="#">About</a></li>
+               <li><a href="#">Services</a></li>
+               <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+
+        <script>
+            // サイドバーの表示/非表示を切り替える関数
+            function toggleSidebar() {
+                document.querySelector('.sidebar').classList.toggle('open');
+            }
+        </script>
+
+     </body>
+    </html>
+  CSS:
+    /* サイドバーの初期状態 */
+   .sidebar {
+     position: fixed;
+     top: 0;
+     right: -250px; /* サイドバーを隠す */
+     width: 250px;
+     height: 100%;
+     background-color: #333;
+     transition: right 0.3s ease; /* 右にスライドするアニメーション */
+     z-index: 1000; /* 他の要素より前面に表示 */
+     padding: 20px;
+     color: white;
+   }
+
+   /* サイドバーを表示する状態 */
+   .sidebar.open {
+     right: 0; /* サイドバーを右側に表示 */
+   }
+
+   /* ハンバーガーメニュー */
+    .hamburger-menu {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+      z-index: 1100; /* サイドバーより上に表示 */
+    }
+
+   /* ハンバーガーアイコンのスタイル */
+    .hamburger-menu:before {
+     content: '\2630'; /* ハンバーガーアイコン（Unicodeで指定） */
+     font-size: 30px;
+     color: #333;
+    }
+解説
+  サイドバー (.sidebar):
+    position: fixed; と top: 0;、right: -250px; で、最初は画面外に隠れる状態にしています。
+    width: 250px; でサイドバーの幅を設定しています。
+    transition: right 0.3s ease; で、サイドバーが右からスライドして表示されるアニメーションを加えています。
+    .sidebar.open で、サイドバーが表示される状態を作ります。このクラスが追加されると、right: 0; になり、サイドバーが画面内にスライドインします。
+  ハンバーガーメニュー (.hamburger-menu):
+    position: fixed; として、常に画面上部に固定されるようにします。
+    cursor: pointer; で、クリックできることを示します。
+    z-index: 1100; で、サイドバーよりも上に表示されるようにします。
+  ハンバーガーアイコン (.hamburger-menu:before):
+    content: '\2630'; で、Unicodeのハンバーガーアイコン (☰) を表示します。
+    font-size: 30px; でアイコンの大きさを調整しています。
+  JavaScript (toggleSidebar 関数):
+    toggleSidebar() 関数は、サイドバーに open クラスを追加・削除する役割を持っています。
+    document.querySelector('.sidebar').classList.toggle('open'); により、クリックするたびにサイドバーがスライドイン・スライドアウトします。
+動作例
+  初期状態:
+    サイドバーは画面外に隠れており、ハンバーガーメニューアイコン (☰) が右上に表示されています。
+  クリック時:
+   ハンバーガーメニューをクリックすると、サイドバーが右からスライドインして表示されます。
+   再度クリックすると、サイドバーがスライドアウトして非表示になります。
+カスタマイズ
+  サイドバーの内容:
+   サイドバー内のリンクを追加・変更することで、ナビゲーションメニューや他の情報を表示できます。
+  アニメーションのカスタマイズ:
+   サイドバーのアニメーション速度や、スライドの方向を変更する場合は、CSSの transition プロパティや right の値を変更することで調整できます。
+  レスポンシブ対応:
+   ハンバーガーメニューは特にモバイルでの利用が一般的なので、@media クエリを使って、デスクトップサイズでサイドバーを常に表示するように変更することができます。
+
+
+----------------------
+
+
+
+WordPressでよく使う骨格のCSSプロパティ
+WordPressのテーマ作成やカスタマイズの際によく使われるCSSプロパティの一部を挙げます。
+
+🌌1.body や html に関する基本設定
+  WordPressのテーマ作成やカスタマイズ時に役立つ基本的なCSSプロパティです。
+  特に、html と body の設定は、全体的なスタイルに影響を与えるため、初期設定としてよく使用されます。
+code
+  HTML:
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="WordPress Theme Example">
+        <title>WordPress Theme Example</title>
+        <link rel="stylesheet" href="styles.css"> <!-- 上記CSSファイル -->
+      </head>
+     <body>
+
+        <!-- ヘッダー -->
+        <header>
+             <h1>My WordPress Website</h1>
+            <nav>
+             <ul>
+                 <li><a href="#">Home</a></li>
+                 <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+             </ul>
+            </nav>
+        </header>
+
+        <!-- メインコンテンツ -->
+        <main>
+            <section>
+                 <h2>Welcome to My Website</h2>
+                 <p>This is a basic example of a WordPress theme structure with the body and html settings applied.</p>
+            </section>
+        </main>
+
+        <!-- フッター -->
+        <footer>
+             <p>&copy; 2025 My WordPress Website</p>
+        </footer>
+
+     </body>
+    </html>
+
+  CSS:
+    /* html と body に関する基本設定 */
+    html, body {
+        margin: 0; /* デフォルトの余白をリセット */
+        padding: 0; /* デフォルトのパディングをリセット */
+        font-family: Arial, sans-serif; /* 全体のフォント設定 */
+        line-height: 1.6; /* 行間の設定 */
+        background-color: #fff; /* 背景色 */
+        color: #333; /* 文字色 */
+        height: 100%; /* 高さを100%に設定（特に全画面表示時に役立つ） */
+    }
+    /* さらに、HTML5のタグでより効率的にボックスモデルを管理するための設定 */
+    *, *:before, *:after {
+        box-sizing: border-box; /* パディングやボーダーのサイズを含めて幅を計算 */
+    }
+    /* レスポンシブのためにビューポート設定 */
+    meta[name="viewport"] {
+        width: device-width;
+        initial-scale: 1;
+        maximum-scale: 1;
+        user-scalable: no;
+    }
+
+解説
+  html, body {}:
+    ・margin: 0; padding: 0;:
+        ・デフォルトの余白とパディングをリセットし、ページが予期せぬスペースを持たないようにします。
+    ・font-family: Arial, sans-serif;:
+        ・ページ全体のフォントを指定します。ここでは、Arial を使い、もしそれがない場合は sans-serif が代わりに使われます。
+    ・line-height: 1.6;:
+        ・行間を設定し、テキストの可読性を向上させます。
+    ・background-color: #fff;:
+        ・ページ全体の背景色を白に設定します。
+    ・color: #333;:
+        ・文字色をダークグレーに設定し、視認性を高めます。
+    ・height: 100%;:
+        ・ページ全体の高さを100%に設定し、親要素である html と body の高さが同じになるようにします。
+  *, *:before, *:after {}:
+    ・box-sizing: border-box;:
+        ・すべての要素に対してボックスモデルを変更します。border-box に設定すると、padding や border のサイズが width と height に含まれるため、レイアウト調整が簡単になります。
+  meta[name="viewport"] {}:
+    ・width=device-width;:
+        ・デバイスの画面幅に合わせて、ビューポートの幅を設定します。これにより、モバイル端末でも適切にレイアウトされます。
+    ・initial-scale: 1; と maximum-scale: 1;:       
+        ・ページが初めて読み込まれた際にズームレベルを 1 に設定し、ズーム操作を無効化します。
+    ・user-scalable: no;:
+        ・ユーザーがページをズームできないように設定します（ただし、アクセシビリティ要件に応じて変更が必要な場合もあります）。
+結果
+    ・このコードを使用すると、ページの基本的なスタイルが適用され、フォント、行間、背景色、余白 などが統一されます。
+    ・WordPressのテーマ作成では、テーマのスタイルを簡単にカスタマイズできるようにするため、これらの基本設定は非常に役立ちます。
+    ・レスポンシブデザインも適切に処理され、スマートフォンやタブレットでも表示が崩れないようにします。
+
+----------------------
+
+🌌2.body や html に関する基本設定
+  WordPressのテーマ作成でよく使われる標準的なコンテナクラスを反映させた HTML のコード例です。
+  これを基にして、コンテンツを中央に配置し、最大幅を設定するレイアウトが作成されます。
+code
+  HTML:
+   <!DOCTYPE html>
+   <html lang="en">
+    <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="description" content="WordPress Theme Example with Container">
+     <title>WordPress Container Example</title>
+     <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+
+     <!-- コンテナ -->
+      <div class="container">
+       <!-- ヘッダー -->
+        <header>
+            <h1>My WordPress Website</h1>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+       <!-- メインコンテンツ -->
+        <main>
+            <section>
+                <h2>Welcome to My Website</h2>
+                <p>This is a basic WordPress theme layout example using a container class to control the content layout.</p>
+                <p>The container ensures that the content is centered and does not stretch beyond a certain width.</p>
+            </section>
+        </main>
+
+       <!-- フッター -->
+        <footer>
+            <p>&copy; 2025 My WordPress Website</p>
+        </footer>
+     </div>
+
+    </body>
+   </html>
+
+  CSS:
+    /* WordPressの標準的なコンテナクラス */
+    .container {
+        width: 100%; /* 画面幅いっぱいに広がる */
+        max-width: 1200px; /* 最大幅を1200pxに設定 */
+        margin: 0 auto; /* 横方向の中央寄せ */
+        padding: 0 20px; /* 左右に20pxのパディング */
+    }
+    /* その他の基本的なスタイル */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+    }
+    h1, h2, h3 {
+        font-family: 'Roboto', sans-serif;
+    }
+解説
+  .container クラス (CSS):
+    ・width: 100%;:
+        ・画面の幅いっぱいにコンテンツを広げますが、max-width によって最大の幅が制限されます。
+    ・max-width: 1200px;:
+        ・コンテンツの最大幅を 1200px に設定します。これにより、大きな画面ではコンテンツが広がりすぎず、一定の幅に収まります。
+    ・margin: 0 auto;:
+        ・左右のマージンを自動的に設定し、コンテンツを中央に配置します。これが中央寄せのキーとなります。
+    ・padding: 0 20px;:
+        ・コンテナ内のコンテンツに左右 20px のパディングを追加し、端にコンテンツがくっつかないようにします。
+  HTML構造:
+    ・<div class="container">:
+        ・すべてのコンテンツをこのコンテナで囲み、スタイルが適用されるようにしています。これにより、コンテンツが中央に配置され、最大幅で表示されます。
+    ・header, main, footer:
+        ・サイトの基本的なセクションを定義しています。header にはサイトのタイトルやナビゲーションを、main には主要なコンテンツを、footer には著作権情報などを配置します。
+動作例
+    ・コンテナ は、画面幅が広くても最大幅 1200px で制限されるため、非常に大きなディスプレイでもコンテンツが横に広がりすぎません。
+    ・中央寄せ されることで、内容が常に中央に配置され、左右に適切なスペースが保たれます。
+    ・パディング を追加することで、コンテンツが画面の端に接しないようになり、視覚的にバランスの取れたレイアウトを作成できます。
+まとめ
+    この .container クラスは、レスポンシブデザイン や レイアウトの調整 に非常に便利です。WordPressのテーマでこのようなクラスを使用することで、コンテンツが過度に広がらず、常に中央に整然と表示されるため、ユーザーにとって見やすく、使いやすいデザインを提供することができます。
+
+----------------------
+
+🌌3.ナビゲーションバーのスタイリング
+  ナビゲーションバーのスタイリングを反映したHTMLコードです。nav 要素の内部に ul とその li 要素を使って、
+  WordPressのナビゲーションメニューを作成する際に必要な基本的なスタイルが適用されています。
+  ナビゲーションメニューは、WordPressテーマで頻繁にカスタマイズされます。
+code
+  HTML:
+   <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="WordPress Theme Example with Navigation Bar">
+        <title>WordPress Theme with Navigation</title>
+        <link rel="stylesheet" href="styles.css"> <!-- 上記CSSファイル -->
+    </head>
+    <body>
+
+        <!-- ナビゲーションバー -->
+       <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+       </nav>
+
+        <!-- メインコンテンツ -->
+        <main>
+            <section>
+                <h2>Welcome to My Website</h2>
+                <p>This is a simple WordPress theme example with a custom navigation bar.</p>
+            </section>
+        </main>
+
+        <!-- フッター -->
+        <footer>
+            <p>&copy; 2025 My WordPress Website</p>
+        </footer>
+
+    </body>
+   </html>
+
+  CSS:
+    /* ナビゲーションバーの背景色 */
+   nav {
+      background-color: #333; /* ダークグレーの背景色 */
+   }
+
+   /* ナビゲーションメニューのリストのスタイル */
+   nav ul {
+    list-style-type: none; /* デフォルトのリストスタイルを消す */
+    padding: 0; /* パディングをリセット */
+    margin: 0; /* マージンをリセット */
+    text-align: center; /* メニューアイテムを中央揃え */
+   }
+
+   /* ナビゲーションメニューアイテムのスタイル */
+   nav ul li {
+    display: inline-block; /* アイテムを横並びにする */
+    margin-right: 20px; /* アイテムの間隔を追加 */ 
+   }
+
+    /* ナビゲーションリンクのスタイル */
+   nav ul li a {
+    color: white; /* リンクの文字色を白に */
+    text-decoration: none; /* 下線を消す */
+    padding: 10px 15px; /* 余白を追加 */
+    display: inline-block; /* ブロックレベルのリンクとして動作 */
+   }
+
+   /* ホバー時のリンクのスタイル */
+   nav ul li a:hover {
+      background-color: #555; /* ホバー時に背景色を変更 */
+   }
+解説
+ nav {}:
+    ・background-color: #333;:
+        ・ナビゲーションバーの背景色を設定しています。ここでは、暗いグレー (#333) を使用しています。
+ nav ul {}:
+    ・list-style-type: none;:
+        ・デフォルトのリストスタイル（通常は丸い点）を削除します。
+    ・padding: 0; margin: 0;:
+        ・リストの余白をリセットします。これにより、リストのアイテムが余計なスペースを持たないようになります。
+    ・text-align: center;:
+        ・メニューアイテムを中央揃えにします。
+ nav ul li {}:
+    ・display: inline-block;:
+        ・リストアイテムを横並びに表示させます。
+    ・margin-right: 20px;:
+        ・各リストアイテムの間に20pxの間隔を追加します。
+ nav ul li a {}:
+    ・color: white;:
+        ・リンクの文字色を白に設定しています。
+    ・text-decoration: none;:
+        ・デフォルトでリンクに下線が引かれていますが、それを取り除きます。
+    ・padding: 10px 15px;:
+        ・リンク内に上下10px、左右15pxの余白を追加し、クリックしやすくします。
+    ・display: inline-block;:
+        ・a 要素をブロック要素のように扱うことで、padding と background-color を正しく適用させます。
+ nav ul li a:hover {}:
+    ・background-color: #555;:
+        ・リンクにホバーすると背景色をダークグレーに変更します。これにより、ユーザーがリンク上にカーソルを乗せた時に視覚的なフィードバックが得られます。
+結果
+    ・このコードを使うことで、シンプルで使いやすいナビゲーションバーが作成されます。
+    ・ホバー時の背景色変更により、ユーザーインターフェースがインタラクティブになります。
+    ・中央揃えと横並びのメニューアイテムにより、サイトのナビゲーションが直感的に操作できるようになります。
+カスタマイズ方法
+    ・リンクのカラーを変更したい場合は、nav ul li a { color: your-color; } で調整できます。
+    ・ホバー時の背景色やリンクのpadding、マージンの設定は、ビジュアルに合わせて自由に変更できます。
+
+----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+✨ 1. フレキシブルなカラムレイアウト
+  フレキシブルカラムは、特に ブログやニュースサイト、eコマース などのページで非常に多用されます。
+  flex と grid を組み合わせることで、異なるサイズのカラムを柔軟に配置できます。
+code
+ 📌 2カラム + サイドバー（PC）
+  HTML:
+  <div class="main-content">
+    <div class="primary">
+       <h2>Main Content</h2>
+       <p>This is the main content area.</p>
+    </div>
+    <div class="secondary">
+       <h3>Sidebar</h3>
+       <ul>
+         <li>Link 1</li>
+         <li>Link 2</li>
+         <li>Link 3</li>
+       </ul>
+    </div>
+  </div>
+  CSS:
+  .main-content {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+   }
+  .primary {
+    flex: 3;
+    background-color: #f4f4f4;
+    padding: 20px;
+  }
+  .secondary {
+    flex: 1;
+    background-color: #e4e4e4;
+    padding: 20px;
+  }
+ 📌 モバイルでサイドバーを下に
+  @media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+
+    .secondary {
+        order: 1;
+    }
+  }
+---------
+
+
+✨ 2. メガメニュー（大規模なナビゲーション）
+  WordPressのヘッダーでよく使われるのが、複数階層のメニューを持つ「メガメニュー」。
+  特に ECサイト や 情報サイト でよく登場します。
+code
+ 📌 メガメニューの基本設定（ヘッダー）
+  HTML:
+  <nav>
+    <ul>
+      <li>Home</li>
+      <li>About
+        <div class="mega-menu">
+          <ul>
+            <li>About Us</li>
+            <li>Our Team</li>
+            <li>History</li>
+           </ul>
+        </div>
+      </li>
+      <li>Services</li>
+      <li>Contact</li>
+    </ul>
+  </nav>
+  CSS:
+  nav ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+   }
+   nav ul li {
+    position: relative;
+   }
+   nav ul li:hover > .mega-menu {
+    display: block;
+   }
+   .mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    display: none;
+    z-index: 1000;
+   }
+   .mega-menu ul {
+    display: flex;
+    gap: 1rem;
+   }
+   .mega-menu ul li {
+    padding: 10px;
+    background-color: #444;
+   }
+
+---------
+
+
+✨ 3. カスタムレイアウトグリッド
+  WordPressでは、カスタムフィールド や カスタム投稿タイプ を使って特定のレイアウトを作成する場合に、グリッドを細かく調整します。
+  特に カードレイアウト や 商品一覧 のようなアイテムを並べるケースに有効です。
+code 
+ 📌 商品や記事をカード型で表示（レスポンシブ）
+ HTML:
+ <div class="card-container">
+  <div class="card">
+    <img src="product1.jpg" alt="Product 1">
+    <div class="card-content">
+      <h2>Product 1</h2>
+      <p>Short description of product 1.</p>
+    </div>
+  </div>
+  <div class="card">
+    <img src="product2.jpg" alt="Product 2">
+    <div class="card-content">
+      <h2>Product 2</h2>
+      <p>Short description of product 2.</p>
+    </div>
+  </div>
+  <div class="card">
+    <img src="product3.jpg" alt="Product 3">
+    <div class="card-content">
+      <h2>Product 3</h2>
+      <p>Short description of product 3.</p>
+    </div>
+  </div>
+ </div>
+ CSS:
+ .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .card img {
+    width: 100%;
+    height: auto;
+  }
+  .card-content {
+    padding: 15px;  
+  }
+  .card-content h2 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  .card-content p {
+    font-size: 1rem;
+    color: #555;
+  }
+ 📌 モバイル対応（カードが1列になる）
+  @media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+  }
+
+
+---------- 
+
+
+✨ 4. カスタムポップアップ・モーダルウィンドウ
+  ポップアップやモーダルウィンドウも、WordPressのUI ではよく使います。
+  フォームの入力、メッセージの表示、画像の拡大などで活用します。
+code
+ 📌 基本的なモーダルウィンドウ
+  HTML:
+    <button class="open-modal">Open Modal</button>
+   <div class="modal">
+     <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2>Modal Title</h2>
+      <p>This is a modal window.</p>
+     </div>
+   </div>
+   CSS:
+   .modal {
+    display: none;  /* 最初は表示しない */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    }
+   .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+    }
+    .modal.show {
+    display: flex;
+    }
+   📌 開閉用のボタン
+    .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    }
+   📌 JavaScriptでモーダルの開閉を制御
+   JavaScript:
+     const modal = document.querySelector('.modal');
+     const modalClose = document.querySelector('.modal-close');
+     const modalOpenButton = document.querySelector('.open-modal');
+
+    modalOpenButton.addEventListener('click', () => {
+      modal.classList.add('show');
+    });
+    modalClose.addEventListener('click', () => {
+      modal.classList.remove('show');
+    });
+
+----------
+
+
+✨ 5. カード型デザインとホバー効果
+  カード型デザインは、メディアギャラリー や ブログポストのプレビュー などでよく使用されます。
+  ホバー効果 を加えることで、インタラクティブで魅力的な要素を作り出します。
+code
+ 📌 カードとホバー効果
+  HTML:
+    <div class="card">
+     <img src="card-image.jpg" alt="Card Image">
+     <div class="card-content">
+       <h2>Card Title</h2>
+       <p>This is a description of the card.</p>
+     </div>
+    </div>
+   CSS:
+   .card {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    .card img {
+    width: 100%;
+    height: auto;
+    }
+    .card-content {
+    padding: 15px;
+    }
+    .card-content h2 {
+    font-size: 1.2rem;
+    margin: 0;
+    }
+    .card-content p {
+    font-size: 1rem;
+    color: #555;
+    }
+
+----------
+
+
+
+✨ 6. フッターのカラムレイアウト
+  WordPressサイトでは、フッターに複数のカラムを持つデザインが一般的です。
+  例えば、サイトマップ、SNSリンク、問い合わせ先などを並べるために使います。
+code
+ 📌 3カラムのフッターレイアウト
+ HTML:
+ <footer class="footer">
+    <div class="footer-item">
+      <h3>About Us</h3>
+      <ul>
+        <li>Company Info</li>
+        <li>Careers</li>
+        <li>Press</li>
+      </ul>
+    </div>
+    <div class="footer-item">
+      <h3>Services</h3>
+      <ul>
+        <li>Web Design</li>
+        <li>SEO</li>
+        <li>Content Creation</li>
+      </ul>
+    </div>
+    <div class="footer-item">
+      <h3>Contact</h3>
+      <ul>
+        <li>Email</li>
+        <li>Phone</li>
+        <li>Address</li>
+      </ul>
+    </div>
+  </footer>
+  CSS:
+  .footer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    background-color: #333;
+    color: white;
+    padding: 40px 20px;
+   }
+  .footer .footer-item {
+    padding: 10px;
+   }
+  .footer .footer-item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  .footer .footer-item ul {
+    list-style: none;
+    padding: 0;
+  }
+  .footer .footer-item ul li {
+    margin-bottom: 8px;
+  }
+
+-----------
+
+
+
+✨ 7. トランジションとアニメーションを使ったボタン効果
+  Webデザインで インタラクション効果 を強化するために、ボタンやリンクにトランジションを加えることがよくあります。
+code
+ 📌 ホバー時のアニメーション付きボタン
+ HTML:
+ <button class="button">Click Me</button>
+ CSS:
+ .button {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  .button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+
+------------
+
+
+
+
+
+
+
+
+

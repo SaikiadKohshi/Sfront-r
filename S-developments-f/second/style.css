@@ -1,7 +1,15 @@
 /* header.php */
 
+body{
+    font-family: Arial,sans-serif;
+    margin: 0;
+    background-color: #f5f5f5;
+}
 
+.photo{
+    font-size: 635px;
 
+}
 
 
 
@@ -11,10 +19,76 @@
 
 
 /* page.php */
+.index-content{
+    margin: 0;
+
+    height: 115px;
+   
+    
+    justify-content: center;
+    align-items: center;
+
+    background-color: #f5f5f5;
+
+}
 
 
 
 
+
+
+/* page-detail.php */
+
+
+.content{
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    align-items: center;
+
+    gap: 30px;
+    margin-top: 20px;
+}
+
+
+.left-contents{
+    display: flex;
+    flex-direction: row; /* 横並び */
+    
+}
+
+
+.right-contents{
+    display: flex;
+    flex-direction: column; /* 縦並び */
+
+}
+.right-contents h3{
+    font-size: 1.5rem;
+    margin: 0;
+}
+.author-chara{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.author-chara li p{
+    margin: 5px 0;
+}
+
+.description{
+    line-height: 1.8px;
+}
+
+/* オンラインストアで見る */
+.online{
+    font-weight: bold;
+    text-decoration: underline;
+
+    color: #8d8f91;
+    
+    cursor: pointer;
+}
 
 
 

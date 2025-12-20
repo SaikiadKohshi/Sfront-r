@@ -1,0 +1,272 @@
+cssのデザインコード集
+
+⭕️1.下線部
+CSSで「下線（アンダーライン）」をデザインするための基本的＆応用的な書き方
+1. 基本的な下線
+ .text-basic {
+  text-decoration: underline;
+ }
+
+2. 下線の色を変える
+ .text-underline-color {
+   text-decoration: underline;
+   text-decoration-color: #ff4d4d;
+ }
+
+3. 下線の太さを変更
+ .text-underline-thick {
+   text-decoration-line: underline;
+   text-decoration-thickness: 3px;
+ }
+
+4. 点線の下線
+ .text-dashed {
+   text-decoration-line: underline;
+   text-decoration-style: dashed;
+   text-decoration-color: #3498db;
+ }
+
+5. 波線（ウェーブ）の下線
+ .text-wavy {
+   text-decoration-line: underline;
+   text-decoration-style: wavy;
+   text-decoration-color: #e67e22;
+ }
+
+6. CSSで自由度の高い“擬似的な下線”を作る（border-bottom）
+ .text-border {
+   border-bottom: 3px solid #2ecc71;
+ }
+
+7.  
+ .text-gradient-underline {
+   background: linear-gradient(transparent 60%, #ffe066 60%);
+ }
+
+8. アニメーションする下線
+ .  {
+   position: relative;
+   display: inline-block;
+ }
+
+ .text-animate::after {
+   content: "";
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   width: 0;
+   height: 2px;
+   background: #ff4d4d;
+   transition: width .3s ease;
+ }
+
+ .text-animate:hover::after {
+   width: 100%;
+ }
+必要なら「太くてカラフルな下線」「手書き風の下線」「二重線」など、もっと応用的なデザインも作成できます。どんなデザインにしたいですか？
+
+
+
+
+
+
+⭕️2.枠線
+CSSで「枠線（ボーダー）」をデザインするための基本的＆応用的な書き方
+
+1. 基本的な枠線の書き方
+1.1 基本的なボーダー
+  /* ボーダーの太さ、種類、色 */
+  element {
+    border: 1px solid black;
+  }
+  1px: ボーダーの太さ
+  solid: ボーダーの種類（solid、dashed、dotted、doubleなど）
+  black: ボーダーの色
+
+1.2 上・右・下・左のボーダーを個別に指定
+ /* 上 */
+  element {
+    border-top: 2px dashed red;
+  }
+
+  /* 右 */
+  element {
+    border-right: 3px dotted blue;
+  }
+
+  /* 下 */
+  element {
+    border-bottom: 4px solid green;
+  }
+
+  /* 左 */
+  element {
+    border-left: 5px double yellow;
+  }
+
+
+2. ボーダーのショートハンド
+2.1 ボーダー全体を一度に指定
+  element {
+    border: 3px dashed #333;
+  }
+
+2.2 ボーダーの4方向を個別に指定
+  /* 上・右・下・左の順に指定 */
+  element {
+    border: 2px solid red blue green yellow;
+  }
+  1つの値：全方向に適用
+  2つの値：上/下と右/左に適用
+  3つの値：上、右/左、下に適用
+  4つの値：上、右、下、左の順に適用
+
+
+3. ボーダーのスタイル
+3.1 ボーダーの種類
+  element {
+    border-style: solid;  /* 実線 */
+    }
+
+  element {
+    border-style: dashed; /* 破線 */
+  }
+
+  element {
+    border-style: dotted; /* 点線 */
+  }
+
+  element {
+    border-style: double; /* 二重線 */
+  }
+
+  element {
+    border-style: groove; /* 凹みのある線 */
+  }
+
+  element {
+    border-style: ridge;  /* 凸みのある線 */
+  }
+
+  element {
+    border-style: inset;  /* 内側に沈み込んだ線 */
+  }
+
+  element {
+    border-style: outset; /* 外側に突き出た線 */
+  }
+
+  element {
+    border-style: none;   /* 枠線なし */
+  }
+
+
+4. ボーダーの色
+4.1 ボーダーの色を指定
+  element {
+   border-color: red;      /* 赤色 */
+   border-color: #ff5733;  /* HEXカラー */
+   border-color: rgb(255, 87, 51); /* RGBカラー */
+   border-color: rgba(255, 87, 51, 0.5); /* RGBAカラー（透明度） */
+   border-color: hsl(9, 100%, 60%); /* HSLカラー */
+ }
+
+4.2 各方向で色を異なるものにする
+ element {
+   border-top-color: red;
+   border-right-color: blue;
+   border-bottom-color: green;
+   border-left-color: yellow;
+ } 
+
+
+5. ボーダーの太さ
+5.1 ボーダーの太さを指定
+ element {
+   border-width: 5px;
+ }
+ 
+5.2 個別にボーダーの太さを指定
+  element {
+    border-top-width: 2px;
+    border-right-width: 3px;
+    border-bottom-width: 4px;
+    border-left-width: 5px;
+  }
+
+
+6. ボーダーの半径（角を丸くする）
+6.1 全方向の角を丸くする
+  element {
+    border-radius: 10px;  /* 四隅を10pxの半径で丸める */
+  }
+
+6.2 個別に角を丸くする
+  element {
+    border-top-left-radius: 10px;   /* 左上 */
+    border-top-right-radius: 15px;  /* 右上 */
+    border-bottom-left-radius: 20px; /* 左下 */
+    border-bottom-right-radius: 25px; /* 右下 */
+ }
+
+
+7. ボーダーのシャドウ（ボーダーの影）
+7.1 ボーダーシャドウを追加
+  element {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); /* 影の位置、ぼかし具合、色 */
+  }
+
+
+8. ボーダーの省略（簡単な書き方）
+8.1 ボーダーなしの状態にする
+  element {
+    border: none;
+  }
+
+8.2 透明なボーダーを使用
+  element {
+     border: 2px solid transparent;
+  }
+
+
+9. 応用的なボーダーのデザイン
+9.1 グラデーションボーダー
+  CSSのグラデーションを使ってボーダーをデザインできます。例えば、背景にグラデーションを使う代わりに、ボーダーをグラデーションで指定できます。
+  element {
+    border: 5px solid transparent; /* 透明なボーダーを設定 */
+    border-image: linear-gradient(to right, red, yellow, blue) 1;
+  }
+  border-imageプロパティは、ボーダーのスタイルとして画像を使うことができます。ここでは、linear-gradient（線形グラデーション）を使っています。
+
+9.2 中央にボーダーを追加（擬似要素）
+  ボックスの中央にボーダーを作成したい場合は、擬似要素 (::before や ::after) を使って追加できます。
+  element::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 2px;
+    background-color: red;
+  }
+
+9.3 円形ボーダー（ボーダーを円形にする）
+  element {
+    border-radius: 50%;  /* 完全に円形 */
+    border: 5px solid black;  /* 円形のボーダー */
+  }
+
+まとめ
+  CSSでの「枠線」の基本的なデザインから応用的なテクニックまで紹介しました。ボーダーはシンプルに使うことができ、少し工夫すれば非常に多様なデザインが可能です。最終的なデザインに合わせて、これらのプロパティを組み合わせて使うと良いでしょう。
+
+
+
+
+
+⭕️3.
+
+
+
+
+
+

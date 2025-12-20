@@ -102,73 +102,6 @@ body.is-locked {
 }
 
 
-/* フォーカストラップで実装できるか目で確認するためのコード */
-/* 今すぐ「見える化」する方法 */
-/*
-.slide-menu a:focus,
-.slide-menu button:focus {
-    outline: 3px solid #fff;
-    outline-offset: 4px;
-}
-*/
-/*
-.jsも.cssも正しいコードで書いてるのに四角枠が見えない原因
-それでも「四角枠が見えない」理由（ほぼ確定）
-    原因①：:focus-visible が効いていて :focus が抑制されている
-        最近のブラウザは👇こういう挙動をする：
-        マウス操作 → フォーカス枠出さない
-        Tabキー操作 → :focus-visible が使われる
-        つまり今のCSSは👇
-        :focus-visible 用のスタイルが無い
-        👉 結果
-        フォーカスは当たってる
-        でも :focus が発火しない
-        見えない
-*/
-
-/* フォーカストラップで実装できるか目で確認するためのコード */
-/* 今すぐ「見える化」する方法 */
-/* =========================
-   フォーカス可視化（完成形）
-   ========================= */
-
-/* 
-:focus:not(:focus-visible) { マウス・JSフォーカスでは出さない
-    outline: none;
-}
-
-
-:focus-visible { キーボード操作時だけ表示
-    outline: 4px solid red;
-    outline-offset: 4px;
-}
-
-*/
-/* スライドメニュー内は白枠にする（背景対策） */
-.slide-menu a:focus-visible,
-.slide-menu button:focus-visible {
-    outline: 3px solid #fff;
-    outline-offset: 4px;
-}
-
-
-
-
-/* さらに改良(プロが書くコード) */
-/* ③ さらに安全にする（プロ仕様）
-
-:focus:not(:focus-visible) { マウス操作では出さない
-    outline: none;
-}
-
-
-:focus-visible {   キーボード操作では必ず出す
-    outline: 3px solid #fff;
-    outline-offset: 4px;
-}
-*/
-
-
 
 
 
@@ -245,8 +178,3 @@ body.is-locked {
 
 
 
-/*
-*:focus {
-    outline: 5px solid red !important;
-}
-    */

@@ -1,0 +1,176 @@
+自分のファイルをgithubに反映する方法
+
+1. 新しく作った場合
+a.まず、githubのサイトを開いてログインする
+
+b.次に新しいリポジトリを作る
+
+c.するとgithub上に以下のコードが出るので、github上に反映したいファイルをターミナルで開いてgithub上に書いてる以下のコードを一行ずる実行する
+
+
+
+Quick setup — if you’ve done this kind of thing before
+or	
+	
+Get started by creating a new file or uploading an existing file. We recommend every repository include a README, LICENSE, and .gitignore.
+…or create a new repository on the command line
+echo "# Sfront-r" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/SaikiadKohshi/Sfront-r.git
+git push -u origin main
+…or push an existing repository from the command line
+git remote add origin https://github.com/SaikiadKohshi/Sfront-r.git
+git branch -M main
+git push -u origin main
+
+d.これで完了
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2. 更新する場合
+           Vsコード上で変更したいコードを含むファイルを選択する
+　　　 変更したファイルを選択したら開発しているディレクトリ上で以下のコードを順番に打つ
+　　　　git add . 
+       git commit -m "first commit"
+　　　　git push -u origin main
+　　　これで変更した部分がgit hub上に反映されたかつ草も生えて完了
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+git上のerror集の対処法
+
+
+3.git上のエラー
+A.ファイルサイズが大きすぎる（最も多い）
+GitHub は 1ファイル 100MB の制限がある。
+また、Push 全体が大きい時（数 MB〜数十 MBでも）400エラーが起きることがある。
+B. パケットサイズ（HTTP POST Buffer）不足
+大きめのバイナリを含むと、Git のデフォルトバッファを超えてエラーが起きる。
+C. GitHub 側の一時的な接続エラー
+たまに起きる。
+
+
+
+🔧 まずやるべき対処
+◆ Step 1：Git のバッファサイズを広げる
+まずこれを試せ。ほぼ確実に改善する。
+git config --global http.postBuffer 524288000
+git config --global http.maxRequestBuffer 1000M
+git config --global http.version HTTP/1.1
+◆ Step 2：もう一度 push
+git push -u origin main
+
+まず、一行ずつ実行でOK。まとめてコピペしてもいいけど、ターミナルでは基本「1行＝1コマンド」。
+🔧 各コマンドの意味と効果（めちゃ分かりやすく解説）
+## ① git config --global http.postBuffer 524288000
+▶「Git が一度に送信できるデータ量の上限」を増やす
+Git は push する時、データを“塊（POST リクエスト）”として送る。
+その塊の上限が小さいと、ちょっと重いファイルがあるだけで送信途中でエラーになる。
+デフォルト：1MB（めっちゃ小さい）
+上の設定：500MB まで拡張
+→ 大きめのファイルでも push できるようになる
+## ② git config --global http.maxRequestBuffer 1000M
+▶「さらに巨大なリクエストを許容させる」
+postBuffer の上限をさらに後押し。
+GitHub に送るデータが多い時、追加の制限に引っかかることがあるので
+最大リクエストサイズを広げることでエラーを避ける。
+→ 大きい変更を push するときの400/403/413エラーを防止
+## ③ git config --global http.version HTTP/1.1
+▶ Git に「HTTP/2 を使うな、1.1 を使え」と指示する
+Git は最近 HTTP/2 を使おうとすることがある。
+しかし HTTP/2 は GitHub との相性が悪く、パケット切断・送信エラーが起きやすい。
+→ HTTP/1.1 に戻すと安定する。
+これは "unexpected disconnect" エラーが出た時によく効く。
+🔥 まとめ：なぜ効果があるのか？
+あなたのエラー：
+error: RPC failed; HTTP 400
+unexpected disconnect while reading sideband packet
+これは データ送信途中で GitHub と通信が切れたという意味。
+原因の多くは以下：
+データサイズが Git の制限を超えた
+HTTP/2 通信が不安定
+GitHub がリクエストを拒否して切断（400）
+今回の設定は、
+送信量の制限を拡大
+不安定な HTTP/2 を使わないよう制御
+GitHub に拒否されないサイズに調整
+→ つまり 通信が途切れず安定するようにする設定。
+
+
+
+
+
+
+

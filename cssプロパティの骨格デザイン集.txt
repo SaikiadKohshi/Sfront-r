@@ -1,0 +1,382 @@
+cssのデザインコード集
+
+
+CSSで骨格（レイアウトの基礎構造）を作るための基本的＆応用的な書き方を 全パターン
+WordPress案件で実務的に“毎回使う”骨格系プロパティ
+
+パターン集
+CSS「骨格」＝ レイアウト構造のためのCSS設計のすべて
+骨格（レイアウト）の設計は大きく分けると次の 6分類になります。
+1.Box Model（余白・境界）
+2.Display（表示形式の変更）
+3.Position（配置）
+4.Flexbox（一次元レイアウト）
+5.Grid（全方向レイアウト）
+6.Responsive（ブレークポイント・流動調整）
+
+7.さらに WordPress 特有の骨格：WordPressの構造に合わせた骨格CSS（.site、.container、.wrapper、.wp-block、.alignwide など）
+
+
+
+⭕️1.Box Model：骨格の一番基本
+  レイアウトの最小単位。
+  基本のプロパティ
+   margin      /* 外側の余白（要素の間隔） */
+   padding     /* 内側の余白（コンテンツと枠の距離） */
+   border      /* 枠線 */
+   width / height
+   box-sizing  /* 枠と幅の計算方法 */
+
+📌 WordPressで実務に必ず使うセット
+  WordPressテーマ構築の初手でほぼ必ず書く：
+✔ グローバルリセット（骨格を揃える）
+  *, *::before, *::after {
+    box-sizing: border-box;
+   }
+   body {
+      margin: 0;
+      padding: 0;
+   }
+
+✔ コンテナ（中央寄せ + 幅制限）
+  .container {
+    width: min(1200px, 90%);
+    margin-inline: auto;
+ }
+
+※WordPressではheader.php / index.php / page.php / single.phpでほぼ毎回使う。
+
+
+
+
+
+
+⭕️2.Display プロパティ
+  主要パターン
+    display: block;       // ブロック要素化
+    display: inline;      // インライン化
+    display: inline-block;
+    display: flex;
+    display: grid;
+    display: none;
+
+✔ 実務で毎回使う例（WPテーマ）
+  nav ul {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+
+
+
+
+
+
+⭕️3.Position 全パターン（配置）
+  ✔ 基本
+   static      // 初期
+   relative    // 基準を作る
+   absolute    // relative の中で自由移動
+   fixed       // 画面に固定（ヘッダー固定）
+   sticky      // スクロールでくっつく
+
+📌 WordPressで最も使われるパターン
+✔ 固定ヘッダー（common）
+  .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #fff;
+   }
+
+✔ アイキャッチ画像に文字
+   .hero {
+      position: relative;
+   }
+   .hero-title {
+      position: absolute;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%);
+   }
+
+
+
+
+
+
+⭕️4. Flexbox（一次元レイアウト）
+   WordPress案件で最も使うレイアウト技法。　　　
+
+✔ 基本プロパティ一覧（全パターン）
+    display: flex;
+    flex-direction: row | column;
+    justify-content: center | space-between | space-around | flex-start | flex-end;
+    align-items: center | flex-start | flex-end | stretch;
+    align-content: center;
+    flex-wrap: wrap | nowrap;
+    gap: 20px;
+    flex-grow: n;
+    flex-shrink: n;
+    flex-basis: auto | n%;
+
+📌 実務で毎回使う Flex のレイアウト例
+✔ グローバルヘッダー（WP案件で必須）
+   .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+   }
+
+✔ 横並びカラム（WordPress ブロックと相性◎）
+   .columns {
+       display: flex;
+       gap: 2rem;
+    }
+   .columns > .col {
+       flex: 1;
+   }
+
+✔ PC は横並び、スマホで縦並び（案件で鉄板）
+   @media (max-width: 768px) {
+      .columns {
+          flex-direction: column;
+      }
+  }
+
+
+
+
+
+
+⭕️5. Grid（全方向レイアウト）
+✔ Grid の主要プロパティ（全パターン）
+   display: grid;
+   grid-template-columns: repeat(3, 1fr) | 200px 1fr;
+   grid-template-rows: repeat(2, auto);
+   grid-template-areas:
+    "header header"
+    "sidebar content"
+    "footer footer";
+
+    gap: 20px;
+    justify-items: start / center / end;
+    align-items: start / center / end;
+    place-items: center;
+    grid-column: 1 / span 2;
+    grid-row: 2 / span 1;
+
+📌 WordPressで強いレイアウト例（トップページ骨格）
+✔ 基本2カラム + ヘッダー・フッター
+   .layout {
+       display: grid;
+       grid-template-columns: 260px 1fr;
+       grid-template-rows: auto 1fr auto;
+       grid-template-areas:
+           "header header"
+           "sidebar main"
+           "footer footer";
+       min-height: 100vh;
+    }
+   header { grid-area: header; }
+   aside { grid-area: sidebar; }
+   main { grid-area: main; }
+   footer { grid-area: footer; }
+  コーポレートサイトでめちゃくちゃ使う。
+
+
+
+
+
+
+
+⭕️6. Responsive（ブレークポイント設計）
+  WordPress案件でほぼ100%使用。
+
+✔ 実務での標準ブレークポイント（推奨）
+  /* スマホ */
+   @media (max-width: 767px) {}
+
+  /* タブレット */
+   @media (max-width: 1023px) {}
+
+  /* PC */
+   @media (min-width: 1024px) {}
+   
+📌 要素をスマホで縦積み
+   @media (max-width: 767px) {
+      .columns {
+          flex-direction: column;
+      }
+  }
+ 
+📌 フォントサイズを流体化（モダン案件）
+  h1 {
+      font-size: clamp(24px, 4vw, 40px);
+  }
+
+
+
+
+
+
+🌟7. WordPress特有の骨格CSS（現場で毎回使う）
+  WordPressにはテーマが共通で使うクラスがある。
+
+✔ 1. .wp-block（Gutenberg 全ブロック）
+    .wp-block {
+      margin-bottom: 2rem;
+   }
+
+✔ 2. wide & full（Gutenberg幅設定）
+    .alignwide {
+       max-width: 1200px;
+      margin-inline: auto;
+   }
+    .alignfull {
+       width: 100%;
+   }
+
+✔ 3. .wp-block-columns（コアのカラムブロック）
+    .wp-block-columns {
+      display: flex;
+      gap: 2rem;
+   }
+    .wp-block-column {
+      flex: 1;
+   }
+   @media (max-width: 767px) {
+       .wp-block-columns {
+          flex-direction: column;
+       }
+   }
+
+✔ 4. 投稿リスト（アーカイブ）骨格
+    .archive-posts {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+✔ 5. シングルページ（記事ページ）の骨格
+   .single-content {
+       width: min(800px, 90%);
+       margin-inline: auto;
+       line-height: 1.8;
+   }
+
+
+
+
+
+🎉 まとめ：CSS骨格の「全パターン」
+  ======================
+  WordPress案件でよく使う骨格CSSの全体系は以下：
+   🔹 基本骨格（Box model）
+   margin
+   padding
+   width / height
+   container（WPで最重要）
+  🔹 要素の種類変更（display）
+   block／inline／flex／grid
+  🔹 配置（position）
+   relative／absolute／sticky／fixed
+  🔹 Flex 骨格
+   ヘッダー構造
+   2〜4カラム
+   スマホで縦積み
+  🔹 Grid 骨格
+   2カラム／3カラム
+   テンプレートレイアウト
+  🔹 レスポンシブ骨格
+   ブレークポイント
+   clamp() の流体デザイン
+  🔹 WordPress特有
+   .container / .wrapper
+   .wp-block-columns
+   .alignwide / .alignfull
+   .site-header / .site-footer
+   archive grid
+   single page width
+ ======================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=====================================================================================================================================================================================================================================================
+
+
+  
+
+  
