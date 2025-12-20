@@ -3,12 +3,12 @@ const slideMenu = document.getElementById("slideMenu");
 const body = document.body;
 
 
-const OPEN_CLASS = "is-open";
+const OPEN_CLASS = 'is-open';
 const LOKE_CLASS = 'is-locked';
 
 function toggleMenu(isOpen){
-    slideMenu.classList.toggle(OPEN_CLASS,isOpen);
-    body.classList.toggle(LOKE_CLASS,isOpen);
+    slideMenu.classList.toggle(OPEN_CLASS, isOpen);
+    body.classList.toggle(LOKE_CLASS, isOpen);
     menuButton.setAttribute('aria-expanded',String(isOpen));
 
 
@@ -36,6 +36,44 @@ function toggleMenu(isOpen){
     }
     */
 }
+
+// メニューボタンを開く
+menuButton.addEventListener('click',()=>{
+    console.log('clicked');
+    const isOpen = !slideMenu.classList.contains(OPEN_CLASS);
+    toggleMenu(isOpen);
+});
+// メニュー外クリックで閉じる
+document.addEventListener('click',(e)=>{
+    //e.stopPropagation();
+    if(slideMenu.classList.contains(OPEN_CLASS) && !slideMenu.contains(e.target) && !menuButton.contains(e.target)){
+        toggleMenu(false);
+    }
+});
+// 'keydown'を使ったjacascript機能の集約関数
+document.addEventListener('keydown',(e)=>{
+    // ESCキーで閉じる機能の部分
+    if(e.key=="Escape" || e.key === 'Esc'){
+        e.preventDefault();
+        toggleMenu(false);
+    }
+    /* 未完 */
+    if(slideMenu.classList.contains(OPEN_CLASS)){
+        handleFocusTrap(e);
+    }
+});
+// メニュー内リンククリックで自動クローズ
+const menuLinks = slideMenu.querySelectorAll('a');
+menuLinks.forEach(link=>{
+    link.addEventListener('click',()=>{
+        toggleMenu(false);
+    })
+});
+
+
+
+
+
 
 /* 未完 */
 // フォーカストラップ（Focus Trap)

@@ -25,7 +25,7 @@
             <button id="menuButton" class="menu-button" aria-label="メニューを開く" aria-expanded="false" aria-controls="slideMenu"> ☰ </button>
         </section>
         <nav id="slideMenu" class="slide-menu">
-            <ul>
+            <ul class="menu-list">
                 <li><a href="#">HOME</a></li>
                 <li><a href="#">MAIN</a></li>
                 <li><a href="#">SUBMAIN</a></li>

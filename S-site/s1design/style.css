@@ -1,4 +1,4 @@
-/* bodyスクロールロック */
+/* body-scroll-rock (「.js」のクラス名単体) */
 body.is-locked {
     overflow: hidden;
 }
@@ -7,7 +7,17 @@ body.is-locked {
 
 
 /* header.php */
+/* <header>タグの中 */
+/* <header>全体の部分 */
+.site-header {
+    position: relative;
+}
 
+
+
+
+/* <section>タグの中 */
+/* <section>タグの部分 */
 .header-introduction{
     display: flex;
     justify-content: center;
@@ -15,18 +25,12 @@ body.is-locked {
 
     background-color: rgb(184, 250, 228);
 }
-
+/* <section>/<div>の部分 */
 .header-picture{
     height: 1001px;
     background-color: rgb(29, 123, 255);
 
 }
-
-
-.site-header {
-    position: relative;
-}
-
 /* ミス */
 /*
   (芯)bodyスクロールロック 
@@ -49,7 +53,8 @@ body.is-locked {
 
 */
 
-
+/* <section>/<button>タグの部分 */
+/* <button>タグ+「.js」のクラス名(全体) */
 .menu-button{
     position: absolute;
     top: 20px;
@@ -66,12 +71,23 @@ body.is-locked {
   
 }
 
+
+
+
+
+
+
+
+/* <nav>タグの中 */
+/* <nav>タグの部分 */
+/* <nav>タグ+「.js」のクラス名(全体) */
 .slide-menu{
     position: fixed;
+    /* メニューを開く時に右半分が出るようにするためのコード */
     top: 0%;
     right: -50%;
-    width: 50%;
-    height: 100vh;
+    width: 50%; /* メニュー欄の横の長さを編集する部分 */ /* メニューを開く時に右半分が出るようにするためのコード */
+    height: 100vh; /* メニュー欄の縦の長さを編集する部分 */
   
     background-color: rgb(48, 109, 178);
     color: rgb(60, 176, 243);
@@ -80,20 +96,24 @@ body.is-locked {
     transition: right 0.3s ease;
   
 }
+/*  <nav>タグ+「.js」のクラス名(ある機能部分) */
 .slide-menu.is-open{
     right: 0;/* 初級者〜超超超級者向け */
     /*transform: translateX(0);*//* プロ向け */
   
 }
+/* <nav>/<ul>タグの部分 */
 .menu-list{
     list-style: none;
     padding: 80px 24px;
     
 }
+/* <nav>/<ul>/<li>タグの部分 */
 .menu-list li{
     margin-bottom: 24px;
     /*margin: 0 24px 0 0;*/
 }
+/* <nav>/<ul>/<li>/<a>タグの部分 */
 .menu-list a{
     color: rgb(1, 68, 130);
     text-decoration: none;
@@ -117,6 +137,7 @@ body.is-locked {
 
 /* page.php */
 /* page.phpにある一つ目の区切り部分 */
+/* <section>タグの部分 */
 .introduction-part1{
     display: flex;
     justify-content: center;
@@ -124,6 +145,7 @@ body.is-locked {
     background-color: rgb(102, 102, 102);
  
 }
+/* <section>/<div>タグの部分 */
 .main-picture01{
     height: 1001px;
     background-color: rgb(68, 50, 255);
@@ -131,6 +153,7 @@ body.is-locked {
 
 
 /* page.phpにある二つ目の区切り部分 */
+/* <section>タグの部分 */
 .introduction-part2{
     display: flex;
     justify-content: center;
@@ -138,6 +161,7 @@ body.is-locked {
     background-color: rgb(102, 102, 102);
   
 }
+/* <section>/<div>タグの部分 */
 .main-picture02{
     height: 1001px;
     background-color: rgb(68, 50, 255);
@@ -167,7 +191,9 @@ body.is-locked {
 
 
 
+
 /* footer.php */
+/* <footer>タグの部分 */
 .footer-Category{
     display: flex;
     justify-content: center;

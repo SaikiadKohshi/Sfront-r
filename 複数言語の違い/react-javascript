@@ -1,0 +1,125 @@
+react-javascript
+　この二つの性質の違い -疑問解決編_01-
+
+Q1.reactだと、最初に使う関数のconstを全部書いてからその後にif文やwhileなどの具体的動作をするコードを書かないと上から読む時constを全部読み込まずにサイト上を実行されるので、
+constを全部書いてからその後に具体的動作を示すコードを書く必要があるんやけど、
+javascriptも最初はconstで全部条件を書いてからその後のdocument.addEventListenerなどの具体的動作を示す関数を書く必要があるんじゃないん？
+
+
+A1.結論から言うね👇
+その認識は「半分正しくて、半分違う」。
+React と 素の JavaScript（ブラウザJS）では「実行モデル」が違うから、同じ考え方をそのまま当てはめると混乱しやすい。
+① Reactで「constを先に全部書く」理由（勘違いされやすい点）
+React（特に関数コンポーネント）ではこう書くことが多いよね👇
+const handleClick = () => {
+  setOpen(true);
+};
+
+const isAdmin = user?.admin;
+
+if (!user) {
+  return <Login />;
+}
+
+return (
+  <button onClick={handleClick}>Open</button>
+);
+なぜこう書くか？
+これは👇が理由。
+関数コンポーネントは「1回の実行」で上から下まで評価される
+JSX内で使う変数・関数は return より前に定義されている必要がある
+if の return に入った瞬間、それ以降は「評価されない」
+📌 Reactは「画面を作るための関数」
+📌 constを先に書くのは「JSの実行ルール」ではなく「Reactの設計上の慣習」
+② JavaScriptは「上から読まれないと動かない」は誤解
+constを全部読み込まずにサイト上を実行される
+👉 これは違う
+JavaScriptは基本的に：
+
+上から1行ずつ実行される
+例👇
+console.log(a); // ❌ ReferenceError
+const a = 10;
+これは JSが勝手に先を実行してるわけじゃない
+👉 a がまだ定義されてないからエラーになる
+③ JavaScriptで「constを先に書く必要がある」ケースと、ないケース
+✅ 必要なケース
+const btn = document.querySelector('#btn');
+
+btn.addEventListener('click', () => {
+  console.log('clicked');
+});
+理由：
+btn を使う前に定義が必要だから
+❌ 必要ないケース（関数宣言）
+document.addEventListener('click', handleClick);
+
+function handleClick() {
+  console.log('clicked');
+}
+これは 動く。
+なぜ？
+👉 関数宣言は hoisting（巻き上げ）される
+
+④ ReactとJSの「決定的な違い」
+観点	React	素のJavaScript
+実行単位	コンポーネント関数	スクリプト
+if文	JSXを返すかどうか	普通の条件分岐
+const配置	return前に必要	使う前にあればOK
+イベント	JSX属性	addEventListener
+Reactは👇
+👉 「UIを返す関数」
+JSは👇
+👉 「その場で処理を実行する命令文」
+
+⑤ document.addEventListener を書く位置の本当のルール
+正解はこれ👇
+1. DOMが存在する
+2. 使う変数が定義されている
+3. その順番が守られている
+だから以下はOK👇
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.querySelector('#btn');
+
+  btn.addEventListener('click', () => {
+    console.log('clicked');
+  });
+});
+「constを全部先に書かないとダメ」ではない
+⑥ あなたの考え方を「正しい形」に直すと
+JavaScriptも最初はconstで全部条件を書いてから…
+⬇️ 修正後（これが正解）
+👉 「使われる前に定義されていればOK」
+👉 「Reactは return があるから、先に書く習慣が強いだけ」
+
+⑦ 実務での指針（めっちゃ大事）
+React
+hooks
+state
+handler
+条件分岐
+return
+👉 上から定型化すると事故らない
+JavaScript
+「実行順」を意識
+DOMがあるか
+hoistingを理解
+関数宣言 vs const関数の違い
+一言でまとめると🔥
+Reactは「設計上、先に書く」
+JavaScriptは「実行される前にあればいい」
+ここまで理解できてるのはかなりレベル高いで。
+次は 「なぜReactはifの途中に書けないのか」 を掘ると一段上に行けるけど、行く？
+
+
+
+
+
+
+
+================================================================================================================================================================================================================================
+
+
+Q2.
+
+A2.

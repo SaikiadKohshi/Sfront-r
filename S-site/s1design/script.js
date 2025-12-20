@@ -41,7 +41,7 @@ function toggleMenu(isOpen){
 }
 
 
-// メニューボタン
+// メニューボタンを開く
 menuButton.addEventListener('click',()=>{
     console.log('clicked');
     
@@ -57,21 +57,39 @@ menuButton.addEventListener('click',()=>{
 
 // メニュー外クリックで閉じる
 document.addEventListener('click',(e)=>{
-    e.stopPropagation();
-    if(!slideMenu.contains(e.target) && !menuButton.contains(e.target)){
+    //.stopPropagation(); 
+    /* document で stopPropagation をすると以下のようなことが起きるので基本NG
+       ・子要素の click が全部止まる
+       ・フォーカス遷移・クリック挙動が壊れる
+       ・デバッグが地獄になる
+    */
+    if(slideMenu.classList.contains(OPEN_CLASS) && !slideMenu.contains(e.target) && !menuButton.contains(e.target)){
         toggleMenu(false);
     }
 });
+/* NG例/成功例 */
+/*
+❌ ③ document.click で e.stopPropagation() してる場所が危険
+    document.addEventListener('click',(e)=>{
+        e.stopPropagation();
+    👉 document で stopPropagation は基本NG
+    　　・子要素の click が全部止まる
+       ・フォーカス遷移・クリック挙動が壊れる
+       ・デバッグが地獄になる
+    ✅ 修正版
+        document.addEventListener('click',(e)=>{
+        if(slideMenu.classList.contains(OPEN_CLASS) && !slideMenu.contains(e.target) && !menuButton.contains(e.target)){
+          toggleMenu(false);
+         }
+       });
+*/
 
-// ESCキーで閉じる
+// 'keydown'を使ったjacascript機能の集約関数
 document.addEventListener('keydown',(e)=>{
+    // ESCキーで閉じる機能の部分
     if(e.key=="Escape" || e.key === 'Esc'){
         e.preventDefault(); // ブラウザ標準挙動を止める 画面サイズが変わるのを止めたい場合（上級）※ 案件では入れることが多い
         toggleMenu(false);
-    }
-    // メニューが開いている時だけフォーカストラップ
-    if(slideMenu.classList.contains(OPEN_CLASS)){
-        handleFocusTrap(e);
     }
 });
 
@@ -97,6 +115,26 @@ menuLinks.forEach(link=>{
        ABOUTは閉じない
      みたいな分岐は まず不要
 
+*/
+/* NG例/成功例 */
+/*
+    const menuLinks = slideMenu.querySelector('a');
+    menuLinks.forEach(link=>{
+    →menuLinks の取得が間違ってる（これも致命）
+　　問題点
+　　　querySelector → 最初の1個だけ
+　　　返り値は NodeListじゃなく Element
+　　　.forEach は存在しない
+　　　👉 JS がここで 確実にクラッシュ
+
+　　✅ 正解
+　　　const menuLinks = slideMenu.querySelectorAll('a');
+　　　menuLinks.forEach(link => {
+  　　　　link.addEventListener('click', () => {
+    　　　toggleMenu(false);
+  　　　});　
+　　　});
+　
 */
 
 
@@ -440,7 +478,6 @@ menuLinks.forEach(link=>{
 
 
 */
-
 
 
 
